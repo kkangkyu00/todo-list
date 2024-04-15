@@ -1,15 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
+import dayjs from 'dayjs';
+import isToday from 'dayjs/plugin/isToday';
 
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+import 'dayjs/locale/ko';
 import './index.css';
 
-const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
-);
+dayjs.locale('ko');
+dayjs.extend(isToday);
+
+const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
   <React.StrictMode>
     <BrowserRouter>
