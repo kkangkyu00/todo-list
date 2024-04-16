@@ -1,17 +1,45 @@
 import React from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { Button } from '@mui/material';
+import { Home, FitnessCenter, AddCard, Leaderboard, Settings } from '@mui/icons-material';
+import { classNames } from '@utils';
 
-const TabContainer = () => {
+import { TabWrapper, StyledButtonGroup } from './style';
+
+const pathMap = [
+  { icon: <Home />, name: '홈', path: '/home' },
+  { icon: <FitnessCenter />, name: '프로그램', path: '/program' },
+  { icon: <AddCard />, name: '관리', path: '/management' },
+  { icon: <Leaderboard />, name: '통계', path: '/stat' },
+  { icon: <Settings />, name: '설정', path: '/setting' }
+];
+
+interface TabContainerProps {}
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const TabContainer = (props: TabContainerProps) => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const handleClickTab = (path: string) => {
+    navigate(path);
+  };
   return (
-    <div>
-      <div>TabContainer</div>
-      <div>
-        <div>통계</div>
-        <div>관리</div>
-        <div>홈</div>
-        <div>프로그램</div>
-        <div>설정</div>
-      </div>
-    </div>
+    <TabWrapper>
+      <StyledButtonGroup variant="contained">
+        {pathMap.map(({ icon, name, path }) => (
+          <Button
+            key={path}
+            disableRipple
+            className={classNames('tab', { active: location.pathname === path })}
+            onClick={() => handleClickTab(path)}
+          >
+            {icon}
+            <div className="tab-name">{name}</div>
+          </Button>
+        ))}
+      </StyledButtonGroup>
+    </TabWrapper>
   );
 };
 

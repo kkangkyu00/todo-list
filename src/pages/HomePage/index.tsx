@@ -10,7 +10,6 @@ const program: null[] = [];
 const HomePage = () => {
   return (
     <div>
-      <div>HomePage</div>
       <HorizontalCalendar />
       <Section>
         <div>예정된 일정</div>
