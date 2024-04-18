@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 const CalenderWrapper = styled.div`
   width: 100%;
-  height: 100%;
+  //height: 100%;
   .date-group {
     display: flex;
     justify-content: space-between;
@@ -12,6 +12,7 @@ const CalenderWrapper = styled.div`
   .date-item {
     width: 12%;
     height: 100%;
+    text-align: center;
 
     .day,
     .dayNumber {
@@ -44,14 +45,12 @@ const HorizontalCalendar = ({ date }: HorizontalCalendarProps) => {
   return (
     <CalenderWrapper>
       <div className="date-group">
-        {dates.map(({ day, dayNumber }) => {
-          return (
-            <div key={dayNumber} className="date-item">
-              <div className="day">{day}</div>
-              <div className="dayNumber">{dayNumber}</div>
-            </div>
-          );
-        })}
+        {dates.map(({ day, dayNumber }) => (
+          <div key={dayNumber} className="date-item">
+            <div className="day">{day}</div>
+            <div className="dayNumber">{dayNumber}</div>
+          </div>
+        ))}
       </div>
     </CalenderWrapper>
   );

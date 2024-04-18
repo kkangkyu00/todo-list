@@ -7,7 +7,7 @@ import { classNames } from '@utils';
 import { TabWrapper, StyledButtonGroup } from './style';
 
 const pathMap = [
-  { icon: <Home />, name: '홈', path: '/home' },
+  { icon: <Home />, name: '홈', path: '/' },
   { icon: <FitnessCenter />, name: '프로그램', path: '/program' },
   { icon: <AddCard />, name: '관리', path: '/management' },
   { icon: <Leaderboard />, name: '통계', path: '/stat' },

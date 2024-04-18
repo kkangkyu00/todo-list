@@ -11,7 +11,7 @@ const AppRoutes = ({ location }: AppRouteProps) => {
   return (
     <Routes location={location} key={location.pathname}>
       <Route path="/" element={<Outlet />}>
-        <Route index path="/home" element={<HomePage />} />
+        <Route index path="/" element={<HomePage />} />
       </Route>
     </Routes>
   );
