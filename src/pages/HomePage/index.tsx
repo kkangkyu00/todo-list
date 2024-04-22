@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { HorizontalCalendar } from '@components';
 
 const HomePageWrapper = styled.div`
-  background: #709cdf;
+  //background: #4045c9;;
   //background: #ededed;
 `;
 
@@ -13,15 +13,18 @@ const CalendarSection = styled.div`
   display: flex;
   align-items: start;
   flex-direction: column;
-  padding: 44px 16px 16px;
+  padding: 44px 16px 0px;
+  border-radius: 0px 0px 50% 50%;
+  background: #00c5ff;
 
   .curr-date {
     display: flex;
     justify-content: center;
     gap: 4px;
+    padding-left: 4px;
     padding-bottom: 8px;
 
-    font-size: 18px;
+    font-size: 20px;
     font-weight: 600;
     line-height: 26px;
   }
@@ -31,22 +34,23 @@ const ScheduleSection = styled.div`
   padding: 24px 16px;
   height: 100%;
   background: #ededed;
-  border-top-right-radius: 26px;
+  //border-top-right-radius: 26px;
 `;
 
 const Group = styled.div``;
 
 const IntendedGroup = styled.div`
-  display: flex;
-  gap: 16px;
+  //display: flex;
+  //gap: 16px;
   width: 100%;
   height: 100%;
-  overflow: scroll;
+  //overflow: scroll;
 `;
 
 const Card = styled.div`
-  min-width: 140px;
-  height: 160px;
+  //min-width: 140px;
+  width: 100%;
+  height: 60px;
   background: #fff;
   border-radius: 8px;
 `;
