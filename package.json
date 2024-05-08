@@ -1,8 +1,13 @@
 {
-  "name": "todo-list",
+  "name": "root",
   "version": "1.0.0",
-  "main": "index.js",
-  "repository": "https://github.com/kkangkyu00/todo-list.git",
-  "author": "vendys-kyuseok <kyuseok@vendys.co.kr>",
-  "license": "MIT"
+  "private": true,
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ]
+  },
+  "scripts": {
+    "start:client": "yarn workspace todo-client-react start"
+  }
 }
