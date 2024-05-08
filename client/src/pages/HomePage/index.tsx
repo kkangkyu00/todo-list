@@ -2,7 +2,7 @@ import React from 'react';
 import { CalendarMonth } from '@mui/icons-material';
 import dayjs from 'dayjs';
 import styled from 'styled-components';
-import { HorizontalCalendar } from '@components';
+import { HorizontalCalendar } from '../../components';
 
 const HomePageWrapper = styled.div`
   //background: #4045c9;;
