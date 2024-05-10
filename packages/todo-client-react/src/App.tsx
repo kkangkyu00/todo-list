@@ -3,6 +3,9 @@ import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import { HeaderContainer, TabContainer } from '@containers';
 
+import axios from 'axios';
+import { useQuery } from '@tanstack/react-query';
+
 import AppRoutes from './routes';
 import './App.css';
 
@@ -11,8 +14,22 @@ const MainLayout = styled.div`
   //padding: 0px 16px;
 `;
 
+const apiClient = axios.create({
+  baseURL: 'http://localhost:5000/api',
+  headers: {
+    'Access-Control-Allow-Origin': '*'
+  }
+});
+
+const getTodos = async () => {
+  const { data } = await apiClient.get(`/welcome`);
+  return data;
+};
+
 const App = () => {
   const location = useLocation();
+  const { data } = useQuery({ queryKey: ['todos'], queryFn: getTodos });
+  console.log(data, '############');
 
   return (
     <div className="App">

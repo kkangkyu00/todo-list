@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import dayjs from 'dayjs';
 import isToday from 'dayjs/plugin/isToday';
-
+import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
@@ -12,13 +12,15 @@ import './index.css';
 
 dayjs.locale('ko');
 dayjs.extend(isToday);
-
+const queryClient = new QueryClient();
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+    <QueryClientProvider client={queryClient}>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </QueryClientProvider>
   </React.StrictMode>
 );
 
