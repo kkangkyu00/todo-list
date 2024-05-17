@@ -11,7 +11,7 @@
     "start:client": "yarn workspace todo-client-react start",
     "start:server": "yarn workspace todo-server-node start",
     "start:dev": "yarn start:client && yarn start:server",
-    "asd": "webpack --mode=development --progress"
+    "asd": "node packages/todo-server-node/src/index.ts"
   },
   "devDependencies": {
     "@babel/core": "^7.24.5",

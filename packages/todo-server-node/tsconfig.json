@@ -1,26 +1,38 @@
 {
 //  "extends": "ts-node/node16/tsconfig.json",
   "compilerOptions": {
+    "lib": [
+      "es5"
+    ],
     "target": "es5",
-    "lib": ["es5", "es6"],
-    "module": "esnext",
+    "module": "commonjs",
+    "typeRoots": ["node_modules/@types"],
     "moduleResolution": "node",
-    "outDir": "dist",
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "strict": true,
     "esModuleInterop": true,
-    "sourceMap": true
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "sourceMap": true,
+    "importHelpers": true,
+    "baseUrl": "src",
+    "paths": {
+      "@/*": ["*"],
+    }
   },
   "ts-node": {
     "esm": true,
-    "compilerOptions": {
-      "esModuleInterop": true
-    }
+    "experimentalSpecifierResolution": "node"
   },
-  "include": ["src/**/*.ts"],
+  "include": ["src/**/*.ts", "src/**/*.json", ".env"],
   "exclude": [
-    "dist",
     "node_modules",
+    "**/*.spec.ts",
     "**/.eslintrc.js"
   ]
 }

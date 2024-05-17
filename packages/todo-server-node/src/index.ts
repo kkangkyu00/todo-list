@@ -8,10 +8,16 @@ const port = 5000;
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-app.use(cors());
+const corsOptions = {
+  origin: 'http://localhost:3000',
+  credentials: true
+};
+
+app.use(cors);
+app.use(express.static('build'));
 
 app.get('/api/welcome', (req: Request, res: Response) => {
-  console.log('dldldldl2');
+  console.log('dldldldl3');
   res.send('welcome!');
 });
 
