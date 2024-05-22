@@ -1,6 +1,9 @@
+import mongoose from 'mongoose';
 import express, { Request, Response } from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
+
+import user from './routes/user';
 
 const app = express();
 const port = 5000;
@@ -8,18 +11,24 @@ const port = 5000;
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-const corsOptions = {
-  origin: 'http://localhost:3000',
-  credentials: true
-};
+const mongoURI = 'mongodb+srv://kyuseok:YyQXWuuDEaMv2Xh4@cluster0.hivqglb.mongodb.net/';
 
-app.use(cors);
-app.use(express.static('build'));
+mongoose
+  .connect(mongoURI)
+  .then(() => console.log('connect'))
+  .catch((err) => console.log(err));
 
-app.get('/api/welcome', (req: Request, res: Response) => {
-  console.log('dldldldl3');
+app.use(express.json());
+// app.use(express.static('build'));
+
+app.use(cors());
+
+app.get('/', (req: Request, res: Response) => {
   res.send('welcome!');
 });
+
+// app.use('/api/auth', auth);
+app.use('/api/user', user);
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);

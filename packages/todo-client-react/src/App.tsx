@@ -19,7 +19,11 @@ const apiClient = axios.create({
 });
 
 const getTodos = async () => {
-  const { data } = await apiClient.get(`/welcome`);
+  const param = {
+    signId: 'as7895644',
+    password: 'kyuseok1!'
+  };
+  const { data } = await apiClient.post(`/user/register`, param);
   return data;
 };
 
