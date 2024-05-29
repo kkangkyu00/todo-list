@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import { HeaderContainer, TabContainer } from '@containers';
 
-import axios from 'axios';
+// import axios from 'axios';
 import { useQuery } from '@tanstack/react-query';
 
 import AppRoutes from './routes';
@@ -14,17 +14,17 @@ const MainLayout = styled.div`
   //padding: 0px 16px;
 `;
 
-const apiClient = axios.create({
-  baseURL: 'http://localhost:5000/api'
-});
+// const apiClient = axios.create({
+//   baseURL: 'http://localhost:5000/api'
+// });
 
 const getTodos = async () => {
-  const param = {
-    signId: 'as7895644',
-    password: 'kyuseok1!'
-  };
-  const { data } = await apiClient.post(`/user/register`, param);
-  return data;
+  // const param = {
+  //   signId: 'as7895644',
+  //   password: 'kyuseok1!'
+  // };
+  // const { data } = await apiClient.post(`/user/register`, param);
+  // return data;
 };
 
 const App = () => {

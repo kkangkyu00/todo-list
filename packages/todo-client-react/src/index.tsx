@@ -7,6 +7,9 @@ import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
 import 'dayjs/locale/ko';
 import './index.css';
 

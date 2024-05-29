@@ -11,7 +11,7 @@ const port = 5000;
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-const mongoURI = 'mongodb+srv://kyuseok:YyQXWuuDEaMv2Xh4@cluster0.hivqglb.mongodb.net/';
+const mongoURI = 'mongodb+srv://kyuseok:YyQXWuuDEaMv2Xh4@cluster0.hivqglb.mongodb.net/todo-server-mongoose';
 
 mongoose
   .connect(mongoURI)
