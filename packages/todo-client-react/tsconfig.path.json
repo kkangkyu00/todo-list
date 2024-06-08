@@ -6,6 +6,8 @@
       "@components/*": ["./components/*"],
       "@containers": ["./containers"],
       "@containers/*": ["./containers/*"],
+      "@hooks": ["./hooks"],
+      "@hooks/*": ["./hooks/*"],
       "@pages": ["./pages"],
       "@pages/*": ["./pages/*"],
       "@routes": ["./routes"],

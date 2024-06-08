@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
+import { RecoilRoot } from 'recoil';
 import dayjs from 'dayjs';
 import isToday from 'dayjs/plugin/isToday';
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
@@ -21,7 +22,9 @@ root.render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
-        <App />
+        <RecoilRoot>
+          <App />
+        </RecoilRoot>
       </BrowserRouter>
     </QueryClientProvider>
   </React.StrictMode>
