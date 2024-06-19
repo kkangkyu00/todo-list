@@ -1,33 +1,9 @@
 import React from 'react';
-import { CalendarMonth } from '@mui/icons-material';
-import dayjs from 'dayjs';
 import styled from 'styled-components';
-import { HorizontalCalendar } from '../../components';
+import WeatherContainer from '@containers/WeatherContainer';
 
 const HomePageWrapper = styled.div`
-  //background: #4045c9;;
-  //background: #ededed;
-`;
-
-const CalendarSection = styled.div`
-  display: flex;
-  align-items: start;
-  flex-direction: column;
-  padding: 44px 16px 0px;
-  border-radius: 0px 0px 50% 50%;
-  background: #00c5ff;
-
-  .curr-date {
-    display: flex;
-    justify-content: center;
-    gap: 4px;
-    padding-left: 4px;
-    padding-bottom: 8px;
-
-    font-size: 20px;
-    font-weight: 600;
-    line-height: 26px;
-  }
+  padding: 44px 16px 16px;
 `;
 
 const ScheduleSection = styled.div`
@@ -59,23 +35,15 @@ const intended: number[] = [1, 2, 3, 4, 5];
 const program: number[] = [1, 2, 3, 4, 5];
 
 const HomePage = () => {
-  localStorage.setItem('tasks', JSON.stringify([{ id: 1 }]));
   return (
     <HomePageWrapper>
-      <CalendarSection>
-        <div className="curr-date">
-          <span>{dayjs().format('YYYY년 MM월')}</span>
-          <CalendarMonth />
-        </div>
-        <HorizontalCalendar />
-      </CalendarSection>
+      <div>ToDoit</div>
+      <WeatherContainer />
       <ScheduleSection>
         <Group>
           <div>예정된 일정</div>
           <IntendedGroup>
-            {intended.map(() => (
-              <Card>asd</Card>
-            ))}
+            {intended?.length ? intended.map(() => <Card>asd</Card>) : <div>예정된 일정이 없습니다</div>}
           </IntendedGroup>
         </Group>
         <Group>
