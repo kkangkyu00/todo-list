@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { ButtonGroup } from '@mui/material';
 
 export const TabWrapper = styled.div`
   position: fixed;
@@ -8,38 +7,62 @@ export const TabWrapper = styled.div`
 
   & > div {
     display: flex;
-    align-items: center;
-    justify-content: center;
+    align-items: end;
 
     width: 100%;
-    height: 56px;
+    height: 64px;
+    background: #6254c0;
+  }
+  .tab-border {
+    position: absolute;
+    top: 0px;
+    left: 15px;
+    width: 60px;
+    height: 58px;
+    background: #6254c0;
+    border-radius: 0 0 100% 100%;
+
+    svg {
+      position: absolute;
+      top: 8px;
+      fill: #6254c0;
+
+      &:first-child {
+        right: calc(100% - 1px);
+        transform: scaleX(-1);
+      }
+      &:last-child {
+        left: calc(100% - 1px);
+      }
+    }
   }
 `;
 
-export const StyledButtonGroup = styled(ButtonGroup)`
-  && {
-    button {
-      display: flex;
-      flex-direction: column;
+export const TabContent = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
 
-      width: 100%;
-      height: 100%;
-      padding-top: 10px;
+  width: 100%;
+  height: calc(100% - 8px);
+  background: #ffffff;
 
-      border: none;
-      background: #fff;
-      color: #74757c;
-    }
-    button:first-child,
-    button:last-child {
-      border-radius: 0px;
-    }
-    button.active {
-      color: #0f8d1c;
-    }
-    .tab-name {
-      padding-top: 2px;
-      font-size: 10px;
-    }
+  .tab {
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 25%;
+    height: 100%;
+  }
+
+  .tab.active span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 46px;
+    height: 46px;
+    border-radius: 50% 50%;
+    background: #ffffff;
   }
 `;
