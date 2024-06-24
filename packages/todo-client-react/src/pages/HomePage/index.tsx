@@ -1,33 +1,45 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
 import React from 'react';
 import styled from 'styled-components';
 import WeatherContainer from '@containers/WeatherContainer';
 
 const HomePageWrapper = styled.div`
-  padding: 44px 16px 16px;
-`;
-
-const ScheduleSection = styled.div`
-  padding: 24px 16px;
   height: 100%;
-  background: #ededed;
-  //border-top-right-radius: 26px;
+  padding-bottom: 62px;
+  //padding: 44px 0 16px;
 `;
 
-const Group = styled.div``;
-
-const IntendedGroup = styled.div`
-  //display: flex;
-  //gap: 16px;
-  width: 100%;
-  height: 100%;
-  //overflow: scroll;
+const Group = styled.div`
+  position: relative;
+  padding: 60px 16px 24px;
+  background: #89ccc5;
+  border-radius: 0 0 16px 16px;
 `;
 
-const Card = styled.div`
-  //min-width: 140px;
-  width: 100%;
-  height: 60px;
-  background: #fff;
+const SectionWrapper = styled.div`
+  gap: 8px;
+  display: flex;
+  flex-direction: column;
+
+  & > div:first-child {
+    padding-top: 32px;
+  }
+`;
+
+const SectionContent = styled.div`
+  gap: 8px;
+  display: flex;
+  flex-direction: column;
+  margin-top: -16px;
+  padding: 16px;
+  background: #ffffff;
+`;
+
+const TodoCard = styled.div`
+  padding: 8px;
+  border: solid 1px #dfdfdf;
+  //border-left: solid 6px #89ccc5;
   border-radius: 8px;
 `;
 
@@ -37,24 +49,23 @@ const program: number[] = [1, 2, 3, 4, 5];
 const HomePage = () => {
   return (
     <HomePageWrapper>
-      <div>ToDoit</div>
-      <WeatherContainer />
-      <ScheduleSection>
-        <Group>
-          <div>예정된 일정</div>
-          <IntendedGroup>
-            {intended?.length ? intended.map(() => <Card>asd</Card>) : <div>예정된 일정이 없습니다</div>}
-          </IntendedGroup>
-        </Group>
-        <Group>
-          <div>나의 운동 프로그램</div>
-          <div>
-            {program.map(() => (
-              <div />
-            ))}
-          </div>
-        </Group>
-      </ScheduleSection>
+      <Group>ToDoit</Group>
+      <SectionWrapper>
+        <SectionContent>
+          {intended.map(() => (
+            <TodoCard>
+              <div>
+                <div>Title</div>
+                <div>DATE</div>
+              </div>
+              <div>일정 간단 요약</div>
+            </TodoCard>
+          ))}
+        </SectionContent>
+        <SectionContent>
+          <div>##### 2</div>
+        </SectionContent>
+      </SectionWrapper>
     </HomePageWrapper>
   );
 };
