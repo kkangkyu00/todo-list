@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
 import React, { useState } from 'react';
+import dayjs from 'dayjs';
 import { Tabs, Tab } from '@mui/material';
 import styled from 'styled-components';
 import WeatherContainer from '@containers/WeatherContainer';
@@ -14,7 +15,10 @@ const HomePageWrapper = styled.div`
 const Group = styled.div`
   position: relative;
   padding: 60px 16px 24px;
-  background: #89ccc5;
+  font-size: 24px;
+  font-weight: 700;
+  color: #ffffff;
+  background: #5267fb;
   border-radius: 0 0 16px 16px;
 `;
 
@@ -42,14 +46,65 @@ const SectionContent = styled.div`
 `;
 
 const TodoCard = styled.div`
-  padding: 8px;
+  position: relative;
+  padding: 8px 8px 8px 12px;
+  overflow: hidden;
   border: solid 1px #dfdfdf;
   //border-left: solid 6px #89ccc5;
-  border-radius: 8px;
+  border-radius: 4px;
+  .task-meta {
+    padding-bottom: 8px;
+    border-bottom: 1px solid #ecedf0;
+
+    .task-title {
+      padding-bottom: 4px;
+      color: #3c3d48;
+      font-size: 20px;
+      font-weight: 700;
+    }
+    .task-desc {
+      color: #3c3d48;
+      font-size: 14px;
+      font-weight: 600;
+    }
+  }
+  .task-date {
+    padding-top: 8px;
+    color: #a0a0b6;
+    font-size: 14px;
+    font-weight: 700;
+  }
+  &:after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    content: '';
+    width: 4px;
+    height: 100%;
+    background: #5267fb;
+  }
 `;
 
-const intended: number[] = [1, 2, 3, 4, 5];
-const program: number[] = [1, 2, 3, 4, 5];
+const intended = [
+  {
+    name: '히히',
+    desc: '아무거나 적어',
+    startDate: dayjs().format('.MM .DD'),
+    endDate: dayjs().format('.MM .DD')
+  },
+  {
+    name: '하하',
+    desc: '일정 간단요약',
+    startDate: dayjs().format('.MM .DD'),
+    endDate: null
+  },
+  {
+    name: '호호',
+    desc: '일정 간단요약',
+    startDate: dayjs().format('.MM .DD'),
+    endDate: null
+  }
+];
 
 const HomePage = () => {
   const [tabValue, setTabValue] = useState('1');
@@ -62,13 +117,17 @@ const HomePage = () => {
       <SectionWrapper>
         <SectionContent>
           <div>예정된 일정</div>
-          {intended.map(() => (
+          {intended.map((task) => (
             <TodoCard>
-              <div>
-                <div>Title</div>
-                <div>DATE</div>
+              <div className="task-meta">
+                <div className="task-title">{task.name}</div>
+                <div className="task-desc">{task.desc}</div>
               </div>
-              <div>일정 간단 요약</div>
+              <div className="task-date">
+                {task.endDate
+                  ? `${dayjs(task.startDate).format('MM DD')} ~ ${dayjs(task.endDate).format('MM DD')}`
+                  : `${dayjs(task.startDate).format('MM DD ⋅ a hh:mm')}`}
+              </div>
             </TodoCard>
           ))}
         </SectionContent>
