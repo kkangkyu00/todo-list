@@ -1,4 +1,5 @@
 import React from 'react';
+import NotificationsOutlinedIcon from '@mui/icons-material/NotificationsOutlined';
 import styled from 'styled-components';
 
 const HeaderWrapper = styled.div`
@@ -7,17 +8,23 @@ const HeaderWrapper = styled.div`
   top: 0;
   display: flex;
   align-items: center;
+  justify-content: space-between;
 
-  width: 100%;
+  width: calc(100% - 32px);
   height: 44px;
   padding: 0 16px;
-  //background: #ffffff;
+  color: #ffffff;
+  font-weight: 700;
+  background: #5267fb;
 `;
 
 const HeaderContainer = () => {
   return (
     <HeaderWrapper>
-      <div>HeaderContainer</div>
+      <div>ToDoit</div>
+      <div>
+        <NotificationsOutlinedIcon />
+      </div>
     </HeaderWrapper>
   );
 };

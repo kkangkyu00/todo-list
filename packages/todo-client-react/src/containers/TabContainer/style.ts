@@ -12,7 +12,7 @@ export const TabWrapper = styled.div`
     width: 100%;
     height: 64px;
     //background: #6254c0;
-    background: #89ccc5;
+    background: #5267fb;
   }
   .tab-border {
     position: absolute;
@@ -20,13 +20,13 @@ export const TabWrapper = styled.div`
     left: 15px;
     width: 60px;
     height: 58px;
-    background: #89ccc5;
+    background: #5267fb;
     border-radius: 0 0 100% 100%;
 
     svg {
       position: absolute;
       top: 8px;
-      fill: #89ccc5;
+      fill: #5267fb;
 
       &:first-child {
         right: calc(100% - 1px);
