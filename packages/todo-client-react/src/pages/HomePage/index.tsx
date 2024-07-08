@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Reorder } from 'framer-motion';
 import dayjs, { Dayjs } from 'dayjs';
 import { Button } from '@mui/material';
 import { PushPin as PushPinIcon, Loop as LoopIcon } from '@mui/icons-material';
@@ -13,14 +14,22 @@ const HomePageWrapper = styled.div`
   padding-bottom: 62px;
 `;
 
-const Group = styled.div`
-  position: relative;
-  padding: 60px 16px 24px;
-  font-size: 24px;
-  font-weight: 700;
-  color: #ffffff;
-  background: #5267fb;
-  border-radius: 0 0 16px 16px;
+// const Group = styled.div`
+//   position: relative;
+//   padding: 60px 16px 24px;
+//   font-size: 24px;
+//   font-weight: 700;
+//   color: #ffffff;
+//   background: #5267fb;
+//   border-radius: 0 0 16px 16px;
+// `;
+
+const Group = styled(Reorder.Group)`
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 0;
+  margin: 0;
 `;
 
 const SectionWrapper = styled.div`
@@ -30,7 +39,8 @@ const SectionWrapper = styled.div`
   background: #ededed;
 
   & > div:first-child {
-    padding-top: 32px;
+    //padding-top: 32px;
+    padding-top: 54px;
   }
 `;
 
@@ -41,71 +51,30 @@ const SectionContent = styled.div`
   padding: 16px;
   background: #ffffff;
 
-  &:first-child {
-    margin-top: -16px;
-  }
+  //&:first-child {
+  //  margin-top: -16px;
+  //}
 
   .btn-more {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0px 6px;
-    font-size: 14px;
 
-    svg {
-      font-size: 16px;
+    .task-more-btn {
+      display: block;
+      padding: 0 4px;
+      font-size: 12px;
     }
-  }
-`;
-
-const TodoCard = styled.div`
-  position: relative;
-  padding: 8px 8px 8px 12px;
-  overflow: hidden;
-  border-radius: 3px;
-  box-shadow:
-    0 1px 3px rgba(0, 0, 0, 0.08),
-    0 1px 3px rgba(0, 0, 0, 0.08),
-    0 1px 2px rgba(0, 0, 0, 0.12);
-
-  .task-meta {
-    padding-bottom: 8px;
-    border-bottom: 1px solid #ecedf0;
-    & > div {
-      display: flex;
-      justify-content: space-between;
+    .task-refresh-btn {
+      min-width: 22px;
+      padding: 4px;
       svg {
-        color: #3c3d48;
-        font-size: 18px;
+        font-size: 14px;
       }
     }
-
-    .task-title {
-      padding-bottom: 4px;
+    button {
       color: #3c3d48;
-      font-size: 20px;
-      font-weight: 700;
     }
-    .task-desc {
-      color: #3c3d48;
-      font-size: 14px;
-      font-weight: 600;
-    }
-  }
-  .task-date {
-    padding-top: 8px;
-    color: #a0a0b6;
-    font-size: 14px;
-    font-weight: 700;
-  }
-  &:after {
-    position: absolute;
-    top: 0;
-    left: 0;
-    content: '';
-    width: 4px;
-    height: 100%;
-    background: #5267fb;
   }
 `;
 
@@ -127,12 +96,14 @@ interface TaskCardProps {
 
 const intended = [
   {
+    idx: 1,
     name: '사용자 정보 수정 시 본인인증 비활성',
     description: '아무말이나 일단 적어',
     startDate: dayjs(),
     endDate: undefined
   },
   {
+    idx: 2,
     name: '웹뷰 플로팅 배너 노출',
     description: undefined,
     startDate: dayjs(),
@@ -141,19 +112,33 @@ const intended = [
 ];
 
 const HomePage = () => {
-  const [tabValue, setTabValue] = useState('1');
-  const handleChange = (e: React.SyntheticEvent, newValue: string) => {
-    setTabValue(newValue);
+  const navigate = useNavigate();
+  const [items, setItems] = useState([1, 2]);
+
+  const handleMoreClick = () => navigate('/');
+
+  const handleRefreshClick = () => {
+    //
   };
+
   return (
     <HomePageWrapper>
-      <Group>ㅁㄴㅇ</Group>
       <SectionWrapper>
         <SectionContent>
-          <div>오늘 일정</div>
-          {intended?.map((t) => (
-            <TaskCard name={t.name} desc={t.description} startDate={t.startDate} endDate={t.endDate} />
-          ))}
+          <div>예정된 일정</div>
+          <Group axis="x" values={items} onReorder={setItems}>
+            {intended?.map((t) => (
+              <TaskCard idx={t.idx} name={t.name} desc={t.description} startDate={t.startDate} endDate={t.endDate} />
+            ))}
+          </Group>
+          <div className="btn-more">
+            <Button className="task-more-btn" onClick={handleMoreClick}>
+              일정 더보기
+            </Button>
+            <Button className="task-refresh-btn" onClick={handleRefreshClick}>
+              <LoopIcon />
+            </Button>
+          </div>
         </SectionContent>
       </SectionWrapper>
     </HomePageWrapper>
