@@ -1,16 +1,16 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
 import React, { useState } from 'react';
-import dayjs from 'dayjs';
-import { Tabs, Tab } from '@mui/material';
+import dayjs, { Dayjs } from 'dayjs';
+import { Button } from '@mui/material';
 import { PushPin as PushPinIcon, Loop as LoopIcon } from '@mui/icons-material';
 import styled from 'styled-components';
+import { TaskCard } from '@components/Card';
 import WeatherContainer from '@containers/WeatherContainer';
 
 const HomePageWrapper = styled.div`
   height: 100%;
   padding-bottom: 62px;
-  //padding: 44px 0 16px;
 `;
 
 const Group = styled.div`
@@ -118,16 +118,23 @@ const intended2 = [
   }
 ];
 
+interface TaskCardProps {
+  name?: string;
+  description?: string;
+  startDate?: Dayjs;
+  endDate?: Dayjs;
+}
+
 const intended = [
   {
-    name: '하하',
-    desc: '일정 간단요약',
-    startDate: dayjs().format('.MM .DD'),
-    endDate: null
+    name: '사용자 정보 수정 시 본인인증 비활성',
+    description: '아무말이나 일단 적어',
+    startDate: dayjs(),
+    endDate: undefined
   },
   {
-    name: '호호',
-    desc: '일정 간단요약',
+    name: '웹뷰 플로팅 배너 노출',
+    description: undefined,
     startDate: dayjs(),
     endDate: dayjs()
   }
@@ -140,65 +147,13 @@ const HomePage = () => {
   };
   return (
     <HomePageWrapper>
-      <Group>
-        <WeatherContainer />
-      </Group>
+      <Group>ㅁㄴㅇ</Group>
       <SectionWrapper>
         <SectionContent>
-          <div>중요한 일정</div>
-          {intended2.map((task) => (
-            <TodoCard>
-              <div className="task-meta">
-                <div>
-                  <div className="task-title">{task.name}</div>
-                  <PushPinIcon />
-                </div>
-                <div className="task-desc">{task.desc}</div>
-              </div>
-              <div className="task-date">
-                {task.endDate
-                  ? `${dayjs(task.startDate).format('MM DD')} ~ ${dayjs(task.endDate).format('MM DD')}`
-                  : `${dayjs(task.startDate).format('MM DD ⋅ a hh:mm')}`}
-              </div>
-            </TodoCard>
+          <div>오늘 일정</div>
+          {intended?.map((t) => (
+            <TaskCard name={t.name} desc={t.description} startDate={t.startDate} endDate={t.endDate} />
           ))}
-        </SectionContent>
-        <SectionContent>
-          <div>예정된 일정</div>
-          {intended.map((task) => (
-            <TodoCard>
-              <div className="task-meta">
-                <div>
-                  <div className="task-title">{task.name}</div>
-                </div>
-                <div className="task-desc">{task.desc}</div>
-              </div>
-              <div className="task-date">
-                {task.endDate
-                  ? `${dayjs(task.startDate).format('MM DD')} ~ ${dayjs(task.endDate).format('MM DD')}`
-                  : `${dayjs(task.startDate).format('MM DD ⋅ a hh:mm')}`}
-              </div>
-            </TodoCard>
-          ))}
-          <div className="btn-more">
-            <div>일정 더보기</div>
-            <LoopIcon />
-          </div>
-        </SectionContent>
-        <SectionContent>
-          <Tabs value={tabValue} onChange={handleChange}>
-            <Tab label="일정" value="1" />
-            <Tab label="일기" value="2" />
-          </Tabs>
-          {tabValue === '1' ? (
-            <div>
-              <div>1</div>
-            </div>
-          ) : (
-            <div>
-              <div>2</div>
-            </div>
-          )}
         </SectionContent>
       </SectionWrapper>
     </HomePageWrapper>
