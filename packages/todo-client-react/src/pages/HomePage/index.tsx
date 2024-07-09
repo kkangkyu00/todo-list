@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Reorder } from 'framer-motion';
+import { Reorder, HTMLMotionProps } from 'framer-motion';
 import dayjs, { Dayjs } from 'dayjs';
 import { Button } from '@mui/material';
 import { PushPin as PushPinIcon, Loop as LoopIcon } from '@mui/icons-material';
@@ -14,22 +14,14 @@ const HomePageWrapper = styled.div`
   padding-bottom: 62px;
 `;
 
-// const Group = styled.div`
-//   position: relative;
-//   padding: 60px 16px 24px;
-//   font-size: 24px;
-//   font-weight: 700;
-//   color: #ffffff;
-//   background: #5267fb;
-//   border-radius: 0 0 16px 16px;
-// `;
-
-const Group = styled(Reorder.Group)`
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  padding: 0;
-  margin: 0;
+const StyleReorderGroup = styled.div`
+  ul {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 0;
+    margin: 0;
+  }
 `;
 
 const SectionWrapper = styled.div`
@@ -78,22 +70,6 @@ const SectionContent = styled.div`
   }
 `;
 
-const intended2 = [
-  {
-    name: '히히',
-    desc: '아무거나 적어',
-    startDate: dayjs(),
-    endDate: dayjs()
-  }
-];
-
-interface TaskCardProps {
-  name?: string;
-  description?: string;
-  startDate?: Dayjs;
-  endDate?: Dayjs;
-}
-
 const intended = [
   {
     idx: 1,
@@ -126,11 +102,13 @@ const HomePage = () => {
       <SectionWrapper>
         <SectionContent>
           <div>예정된 일정</div>
-          <Group axis="x" values={items} onReorder={setItems}>
-            {intended?.map((t) => (
-              <TaskCard idx={t.idx} name={t.name} desc={t.description} startDate={t.startDate} endDate={t.endDate} />
-            ))}
-          </Group>
+          <StyleReorderGroup>
+            <Reorder.Group axis="x" values={items} onReorder={setItems}>
+              {intended?.map((t) => (
+                <TaskCard idx={t.idx} name={t.name} desc={t.description} startDate={t.startDate} endDate={t.endDate} />
+              ))}
+            </Reorder.Group>
+          </StyleReorderGroup>
           <div className="btn-more">
             <Button className="task-more-btn" onClick={handleMoreClick}>
               일정 더보기

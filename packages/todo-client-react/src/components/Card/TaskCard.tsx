@@ -1,6 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { motion, Reorder, useAnimate, useDragControls, useMotionValue } from 'framer-motion';
 import dayjs, { Dayjs } from 'dayjs';
+import DeleteIcon from '@mui/icons-material/Delete';
+// import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+// import DriveFileRenameOutlineIcon from '@mui/icons-material/DriveFileRenameOutline';
+// import { Divider } from '@mui/material';
 import styled from 'styled-components';
 
 const TaskCardWrapper = styled.div`
@@ -8,9 +12,11 @@ const TaskCardWrapper = styled.div`
 `;
 
 const SwipeContainer = styled(motion.div)`
+  z-index: 10;
   position: relative;
   width: 100%;
   height: 100%;
+  background: #fff;
 `;
 
 const SwipeContent = styled(Reorder.Item)`
@@ -56,10 +62,25 @@ const Meta = styled.div`
   }
 `;
 
-const DelButton = styled(motion.button)`
+const DelBox = styled.div`
+  z-index: 5;
   position: absolute;
   top: 0;
-  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  text-align: end;
+  background: #ededed;
+  //border: 1px solid #ededed;
+  border: none;
+  border-radius: 4px;
+`;
+
+const DelButton = styled(motion.button)`
+  width: 80px;
+  //height: 50%;
+  height: 100%;
+  border: none;
 `;
 
 interface TaskCardProps {
@@ -70,24 +91,21 @@ interface TaskCardProps {
   endDate?: Dayjs | string;
 }
 
-const TaskCard = ({ idx, name, desc, startDate, endDate }: TaskCardProps): React.JSX.Element => {
+const TaskCard: React.FC<TaskCardProps> = ({ idx, name, desc, startDate, endDate }: TaskCardProps) => {
   const [animateRef, animate] = useAnimate();
   const reorderDragControls = useDragControls();
   const motionX = useMotionValue(0);
 
-  const [isDeleteShow, setIsDeleteShow] = useState(false);
+  const handleTaskClick = () => {
+    console.log('##### handleTaskClick', idx);
+  };
 
-  const deleteAnimateState = isDeleteShow ? 'appear' : 'disappear';
+  // const handleTaskPutClick = () => {
+  //   console.log('##### handleTaskPutClick', idx);
+  // };
 
-  useEffect(() => {
-    motionX.on('change', (v) => {
-      const isOverThreshold = v < -80 / 2;
-      setIsDeleteShow(isOverThreshold);
-    });
-  }, [motionX]);
-
-  const handleItemDeleteClick = () => {
-    console.log('##### item delete idx', idx);
+  const handleTaskDeleteClick = () => {
+    console.log('##### handleTaskDeleteClick', idx);
   };
 
   return (
@@ -96,12 +114,13 @@ const TaskCard = ({ idx, name, desc, startDate, endDate }: TaskCardProps): React
         ref={animateRef}
         drag="x"
         dragElastic={0.1}
-        dragConstraints={{ left: -54, right: 0 }}
+        dragConstraints={{ left: -80, right: 0 }}
         onDragEnd={() => {
           const isOverThreshold = motionX.get() < -80 / 2;
           animate(animateRef.current, { x: isOverThreshold ? -80 : 0 });
         }}
         style={{ x: motionX }}
+        onClick={handleTaskClick}
       >
         <SwipeContent value={idx} dragControls={reorderDragControls} dragListener={false}>
           <Meta>
@@ -115,17 +134,15 @@ const TaskCard = ({ idx, name, desc, startDate, endDate }: TaskCardProps): React
           </Meta>
         </SwipeContent>
       </SwipeContainer>
-      <DelButton
-        initial="disappear"
-        animate={deleteAnimateState}
-        variants={{
-          appear: { opacity: 1 },
-          disappear: { opacity: 0 }
-        }}
-        onClick={handleItemDeleteClick}
-      >
-        삭제
-      </DelButton>
+      <DelBox>
+        {/* <DelButton onClick={handleTaskPutClick}> */}
+        {/*  <DriveFileRenameOutlineIcon /> */}
+        {/* </DelButton> */}
+        {/* <Divider /> */}
+        <DelButton onClick={handleTaskDeleteClick}>
+          <DeleteIcon />
+        </DelButton>
+      </DelBox>
     </TaskCardWrapper>
   );
 };
