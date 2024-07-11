@@ -31,8 +31,8 @@ const SectionWrapper = styled.div`
   background: #ededed;
 
   & > div:first-child {
-    //padding-top: 32px;
-    padding-top: 54px;
+    padding-top: 32px;
+    //padding-top: 54px;
   }
 `;
 

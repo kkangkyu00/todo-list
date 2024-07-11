@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 export const TabWrapper = styled.div`
+  z-index: 1000;
   position: fixed;
   bottom: 0;
   width: 100%;

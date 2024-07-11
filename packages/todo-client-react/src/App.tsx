@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import CircularProgress from '@mui/material/CircularProgress';
 import styled from 'styled-components';
-import { HeaderContainer, TabContainer } from '@containers';
+import { HeaderContainer, TabBarContainer } from '@containers';
 // import { usePullToRefresh } from '@utils';
 
 import AppRoutes from './routes';
@@ -33,6 +33,7 @@ const MainLayout2 = styled.div`
 const MainLayout = styled.div`
   //height: 100%;
   //padding: 0px 16px;
+  padding-top: 44px;
 `;
 
 // const apiClient = axios.create({
@@ -55,7 +56,7 @@ const App = () => {
           <MainLayout>
             <AppRoutes location={location} />
           </MainLayout>
-          <TabContainer />
+          <TabBarContainer />
         </div>
       </React.Suspense>
     </MainLayout2>

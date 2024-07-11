@@ -1,14 +1,14 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { motion, Variants } from 'framer-motion';
-import { Home, AddCard, Leaderboard, Settings } from '@mui/icons-material';
+import { Home, EditCalendar, Leaderboard, Settings } from '@mui/icons-material';
 import { classNames } from '@utils';
 
 import { TabWrapper, TabContent } from './style';
 
 const pathMap = [
   { icon: <Home />, path: '/' },
-  { icon: <AddCard />, path: '/tasks' },
+  { icon: <EditCalendar />, path: '/tasks' },
   { icon: <Leaderboard />, path: '/stat' },
   { icon: <Settings />, path: '/setting' }
 ];
@@ -20,7 +20,7 @@ const tabIconVariant = {
 
 const initialVariants = { hiddenState: { display: 'none', transition: { duration: 0 } } };
 
-const TabContainer = () => {
+const TabBarContainer = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [variants, setVariants] = useState<Variants>(initialVariants);
@@ -81,4 +81,4 @@ const TabContainer = () => {
   );
 };
 
-export default TabContainer;
+export default TabBarContainer;
