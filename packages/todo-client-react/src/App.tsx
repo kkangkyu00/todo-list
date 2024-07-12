@@ -51,13 +51,13 @@ const App = () => {
         <CircularProgress />
       </div>
       <React.Suspense fallback="">
-        <div>
+        <>
           <HeaderContainer />
           <MainLayout>
             <AppRoutes location={location} />
           </MainLayout>
           <TabBarContainer />
-        </div>
+        </>
       </React.Suspense>
     </MainLayout2>
   );

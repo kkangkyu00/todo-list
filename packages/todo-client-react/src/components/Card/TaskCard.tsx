@@ -84,7 +84,7 @@ const DelButton = styled(motion.button)`
 `;
 
 interface TaskCardProps {
-  idx: number;
+  idx?: number;
   name?: string;
   desc?: string;
   startDate?: Dayjs | string;
