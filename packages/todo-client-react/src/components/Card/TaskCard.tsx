@@ -9,6 +9,7 @@ import styled from 'styled-components';
 
 const TaskCardWrapper = styled.div`
   position: relative;
+  height: 100%;
 `;
 
 const SwipeContainer = styled(motion.div)`
@@ -16,12 +17,14 @@ const SwipeContainer = styled(motion.div)`
   position: relative;
   width: 100%;
   height: 100%;
+  min-height: 62px;
   background: #fff;
 `;
 
 const SwipeContent = styled(Reorder.Item)`
   position: relative;
   overflow: hidden;
+  height: 100%;
   padding: 8px 8px 8px 12px;
   border-top: 1px solid #ededed;
   border-radius: 4px;
@@ -29,6 +32,10 @@ const SwipeContent = styled(Reorder.Item)`
     0 1px 3px rgba(0, 0, 0, 0.08),
     0 1px 3px rgba(0, 0, 0, 0.08),
     0 1px 2px rgba(0, 0, 0, 0.12);
+
+  li {
+    height: 100%;
+  }
 
   &:after {
     position: absolute;
@@ -91,7 +98,7 @@ interface TaskCardProps {
   endDate?: Dayjs | string;
 }
 
-const TaskCard: React.FC<TaskCardProps> = ({ idx, name, desc, startDate, endDate }: TaskCardProps) => {
+const TaskCard = ({ idx, name, desc, startDate, endDate }: TaskCardProps) => {
   const [animateRef, animate] = useAnimate();
   const reorderDragControls = useDragControls();
   const motionX = useMotionValue(0);
@@ -127,9 +134,7 @@ const TaskCard: React.FC<TaskCardProps> = ({ idx, name, desc, startDate, endDate
             {name && <div className="card-meta-title">{name}</div>}
             {desc && <div className="card-meta-desc">{desc}</div>}
             <div className="card-meta-date">
-              {endDate
-                ? `${dayjs(startDate)?.format('MM DD')} ~ ${dayjs(endDate)?.format('MM DD')}`
-                : `${dayjs(startDate)?.format('MM DD ⋅ a hh:mm')}`}
+              {startDate && endDate && `${dayjs(startDate)?.format('MM DD')} ~ ${dayjs(endDate)?.format('MM DD')}`}
             </div>
           </Meta>
         </SwipeContent>

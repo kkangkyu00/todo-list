@@ -82,7 +82,7 @@ const TasksPage = () => {
             const startPoint = getHourDuration(t.startDate);
             const endPoint = getHourDuration(t.endDate);
 
-            const top = `${84 * startPoint}px`;
+            const top = `${84 * startPoint - 44}px`;
             const height = `${84 * (endPoint - startPoint)}px`;
             return (
               <WeekTaskItem style={{ zIndex, top, height }}>

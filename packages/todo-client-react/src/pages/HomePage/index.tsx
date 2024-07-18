@@ -8,6 +8,7 @@ import { PushPin as PushPinIcon, Loop as LoopIcon } from '@mui/icons-material';
 import styled from 'styled-components';
 import { TaskCard } from '@components/Card';
 import WeatherContainer from '@containers/WeatherContainer';
+import Calendar from '@components/Calendar/Calendar';
 
 const HomePageWrapper = styled.div`
   height: 100%;
@@ -97,9 +98,31 @@ const HomePage = () => {
     //
   };
 
+  const markedDates = [
+    {
+      startDate: dayjs('2024-07-12'),
+      endDate: dayjs('2024-07-15'),
+      color: 'red',
+      markClass: undefined
+    },
+    {
+      startDate: dayjs('2024-07-15'),
+      endDate: dayjs('2024-07-16'),
+      color: 'blue',
+      markClass: undefined
+    },
+    {
+      startDate: dayjs('2024-07-18 13:40:00'),
+      endDate: dayjs('2024-07-18 16:30:00'),
+      color: 'red',
+      markClass: undefined
+    }
+  ];
+
   return (
     <HomePageWrapper>
       <SectionWrapper>
+        <Calendar markedDates={markedDates} />
         <SectionContent>
           <div>예정된 일정</div>
           <StyleReorderGroup>
