@@ -102,7 +102,7 @@ const HomePage = () => {
     {
       startDate: dayjs('2024-07-12'),
       endDate: dayjs('2024-07-15'),
-      color: 'red',
+      color: 'black',
       markClass: undefined
     },
     {
@@ -111,6 +111,12 @@ const HomePage = () => {
       color: 'blue',
       markClass: undefined
     },
+    // {
+    //   startDate: dayjs('2024-07-16'),
+    //   endDate: dayjs('2024-07-18'),
+    //   color: 'green',
+    //   markClass: undefined
+    // },
     {
       startDate: dayjs('2024-07-18 13:40:00'),
       endDate: dayjs('2024-07-18 16:30:00'),

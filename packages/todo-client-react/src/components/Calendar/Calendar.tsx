@@ -4,7 +4,7 @@ import { Button } from '@mui/material';
 import { ArrowBackIosNew as ArrowBackIcon, ArrowForwardIos as ArrowForwardIcon } from '@mui/icons-material';
 
 import styled from 'styled-components';
-import { classNames } from '@utils';
+import { classNames, getDatesInMonth } from '@utils';
 
 interface IMarked {
   startDate?: Dayjs | string;
@@ -16,6 +16,12 @@ interface IMarked {
 interface CalendarProps {
   markedDates?: IMarked[];
   isHorizontal?: boolean;
+}
+
+interface Marker {
+  color: string;
+  startingDay: boolean;
+  endingDay: boolean;
 }
 
 const CalendarHeader = styled.div`
@@ -33,8 +39,20 @@ const CalendarHeaderWrapper = styled.div`
 
 const ArrowButton = styled(Button)``;
 
-const WeekItem = styled.div`
+const CalendarWeek = styled.div`
   position: relative;
+  height: 30px;
+`;
+const CalendarWeekEvent = styled.div`
+  position: relative;
+  height: 30px;
+`;
+
+const WeekItem = styled.div`
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   display: flex;
 `;
 
@@ -43,6 +61,7 @@ const DateItem = styled.div`
   height: 30px;
   text-align: center;
   border: 1px solid #000;
+  vertical-align: initial;
 
   &.today {
     color: blue;
@@ -52,54 +71,44 @@ const DateItem = styled.div`
   }
 `;
 
+const View = styled.div`
+  height: 4px;
+`;
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const renderPeriod = (index: number, item: IMarked) => {
+  const styles = {
+    backgroundColor: item.color
+  };
+  return <View style={styles} />;
+};
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const getItems = (items?: IMarked[], date?: Dayjs) => {
+  let h = 0;
+  return items?.map((marker) => {
+    h += 1;
+    return renderPeriod(h, marker);
+  });
+};
+
+const renderMultiMarkings = (items?: IMarked[], date?: Dayjs) => {
+  return <div>{getItems(items, date)}</div>;
+};
+
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const Calendar = ({ markedDates, isHorizontal }: CalendarProps) => {
   const [calendarDate, setCalendarDate] = useState<Dayjs>(dayjs());
   const [selectedDate, setSelectedDate] = useState<Dayjs>(dayjs());
-
-  const firstDayOfMonth = dayjs(calendarDate).startOf('month').day();
-  const lastDayOfMonth = dayjs(calendarDate).endOf('month').day();
+  const [markerDates, setMarkerDates] = useState({});
 
   useEffect(() => {
     setCalendarDate(selectedDate);
   }, [selectedDate]);
 
-  const prevDates = useMemo(() => {
-    const dates: Dayjs[] = [];
-    for (let idx = firstDayOfMonth; idx > 0; idx -= 1) {
-      const date = dayjs(calendarDate).startOf('month');
-      dates.push(dayjs(date).add(-idx, 'day'));
-    }
-    return dates;
-  }, [firstDayOfMonth, calendarDate]);
-
-  const nextDates = useMemo(() => {
-    const dates: Dayjs[] = [];
-    for (let idx = 1; idx <= 6 - lastDayOfMonth; idx += 1) {
-      const date = dayjs(calendarDate).endOf('month');
-      dates.push(dayjs(date).add(idx, 'day'));
-    }
-    return dates;
-  }, [lastDayOfMonth, calendarDate]);
-
-  const currentDates = useMemo(() => {
-    const dates: Dayjs[] = [];
-    const startDate = dayjs(calendarDate).startOf('month');
-    const endDate = dayjs(calendarDate).endOf('month');
-    for (let i = startDate; i.isBefore(endDate); i = i.add(1, 'day')) {
-      dates.push(i);
-    }
-    return dates;
-  }, [calendarDate]);
-
   const calendarDates = useMemo(() => {
-    const array = [...prevDates, ...currentDates, ...nextDates];
-    const answer = [];
-    for (let i = 0; i < array.length / 7; i += 1) {
-      answer.push(array.slice(i * 7, i * 7 + 7));
-    }
-    return answer;
-  }, [prevDates, currentDates, nextDates]);
+    return getDatesInMonth(calendarDate);
+  }, [calendarDate]);
 
   const handleDateClick = (date: Dayjs) => {
     setSelectedDate(date);
@@ -112,6 +121,65 @@ const Calendar = ({ markedDates, isHorizontal }: CalendarProps) => {
   const handleNextClick = () => {
     setCalendarDate(calendarDate.add(1, 'month'));
   };
+
+  // test
+
+  useEffect(() => {
+    const emptyPeriod = { color: 'transparent' };
+    const sortDates = markedDates?.sort((prev, curr) => {
+      const { startDate: prevStart, endDate: prevEnd } = prev;
+      const { startDate: currStart, endDate: currEnd } = curr;
+      return dayjs(currEnd).diff(currStart, 'day') - dayjs(prevEnd).diff(prevStart, 'day');
+    });
+    console.log(sortDates, '##############');
+
+    const mArray: Record<string, Record<string, Marker[]>> = sortDates?.reduce((prev, curr) => {
+      const start = dayjs(curr.startDate);
+      const end = dayjs(curr.endDate);
+      const totalDays = end.diff(start, 'day') + 1;
+
+      let rowIndex = 0;
+      let freeRowFound = false;
+      while (!freeRowFound) {
+        freeRowFound = true;
+        for (let i = 0; i < totalDays; i += 1) {
+          const date = start.add(i, 'day');
+          const dateStr = date.format('YYYY-MM-DD');
+
+          const period = prev[dateStr]?.periods?.[rowIndex];
+          const isWithinInterval = dayjs(date).isBetween(start, end, 'day', '[]');
+          if (period && isWithinInterval) {
+            console.log(dateStr, '###### dateStr');
+            rowIndex += 1;
+            freeRowFound = false;
+            break;
+          }
+        }
+      }
+
+      for (let i = 0; i < totalDays; i += 1) {
+        const dateStr = start.add(i, 'day').format('YYYY-MM-DD');
+        let marking = prev[dateStr];
+
+        if (!marking) marking = {};
+        if (!marking.periods) marking.periods = [];
+
+        if (marking.periods.length <= rowIndex) {
+          marking.periods = marking.periods.concat(
+            [...Array(rowIndex + 1 - marking.periods.length)].map(() => ({ ...emptyPeriod }))
+          );
+        }
+        marking.periods[rowIndex] = {
+          color: curr.color,
+          startingDay: i === 0,
+          endingDay: i === totalDays - 1
+        };
+        prev[dateStr] = marking;
+      }
+      return prev;
+    }, {});
+    setMarkerDates(mArray);
+  }, []);
 
   return (
     <div>
@@ -129,33 +197,28 @@ const Calendar = ({ markedDates, isHorizontal }: CalendarProps) => {
       </CalendarHeader>
       <div>
         {calendarDates.map((dates) => {
-          let h = 0;
           return (
-            <WeekItem>
-              {dates.map((date) => {
-                return (
-                  <DateItem
-                    onClick={() => handleDateClick(date)}
-                    className={classNames({
-                      select: dayjs(date).isSame(selectedDate, 'day'),
-                      today: dayjs(date).isSame(dayjs(), 'day')
-                    })}
-                  >
-                    <span>{date.date()}</span>
-                    {markedDates?.map((marker, i) => {
-                      const isAfter = dayjs(date).isSameOrAfter(marker.startDate, 'day');
-                      const isBefore = dayjs(date).isSameOrBefore(marker.endDate, 'day');
-                      const l = (100 / 7) * dayjs(date).day();
-                      if (isAfter && isBefore) {
-                        h += 1;
-                        return <div style={{ position: 'absolute', top: `${h}em`, left: `${l}%` }}>{i}</div>;
-                      }
-                      return null;
-                    })}
-                  </DateItem>
-                );
-              })}
-            </WeekItem>
+            <CalendarWeek>
+              <WeekItem>
+                {dates.map((date) => {
+                  const k = dayjs(date).format('YYYY-MM-DD');
+                  return (
+                    <DateItem
+                      onClick={() => handleDateClick(date)}
+                      className={classNames({
+                        select: dayjs(date).isSame(selectedDate, 'day'),
+                        today: dayjs(date).isSame(dayjs(), 'day')
+                      })}
+                    >
+                      <span>{date.date()}</span>
+                      {markerDates?.[k] ? (
+                        <CalendarWeekEvent>{renderMultiMarkings(markerDates?.[k]?.periods)}</CalendarWeekEvent>
+                      ) : null}
+                    </DateItem>
+                  );
+                })}
+              </WeekItem>
+            </CalendarWeek>
           );
         })}
       </div>
