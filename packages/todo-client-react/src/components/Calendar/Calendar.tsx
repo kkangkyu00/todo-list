@@ -133,7 +133,7 @@ const Calendar = ({ markedDates, isHorizontal }: CalendarProps) => {
     });
     console.log(sortDates, '##############');
 
-    const mArray: Record<string, Record<string, Marker[]>> = sortDates?.reduce((prev, curr) => {
+    const mArray = sortDates?.reduce((prev, curr) => {
       const start = dayjs(curr.startDate);
       const end = dayjs(curr.endDate);
       const totalDays = end.diff(start, 'day') + 1;
