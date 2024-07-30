@@ -10,7 +10,6 @@ export type TTask = {
 
 export interface ITask extends TTask, Document {}
 
-
 const TaskSchema: Schema = new mongoose.Schema({
   tid: {
     type: String,
@@ -21,7 +20,7 @@ const TaskSchema: Schema = new mongoose.Schema({
   name: {
     type: String,
     maxlength: 50,
-    required: true,
+    required: true
   },
   description: {
     type: String,

@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Button } from '@mui/material';
 
 export const CalenderWrapper = styled.div`
   width: 100%;
@@ -45,30 +46,42 @@ export const CalenderWrapper = styled.div`
   }
 `;
 
-// export const styleConstructor = (theme: Theme = {}) => {
-//   const appStyle = {...defaultStyle, ...theme};
-//   return StyleSheet.create({
-//     dots: {
-//       flexDirection: 'row'
-//     },
-//     periods: {
-//       alignSelf: 'stretch'
-//     },
-//     period: {
-//       height: 4,
-//       marginVertical: 1,
-//       backgroundColor: appStyle.dotColor
-//     },
-//     startingDay: {
-//       borderTopLeftRadius: 2,
-//       borderBottomLeftRadius: 2,
-//       marginLeft: 4
-//     },
-//     endingDay: {
-//       borderTopRightRadius: 2,
-//       borderBottomRightRadius: 2,
-//       marginRight: 4
-//     },
-//     ...(theme['stylesheet.marking'] || {})
-//   });
-// };
+//
+
+export const CalendarHeader = styled.div`
+  padding: 8px 0;
+  .calendar-year {
+    text-align: center;
+  }
+`;
+
+export const CalendarHeaderWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+`;
+
+export const ArrowButton = styled(Button)``;
+
+export const CalendarWeek = styled.div`
+  position: relative;
+  width: 100%;
+  height: 30px;
+  display: flex;
+`;
+
+export const DateItem = styled.div`
+  width: 100%;
+  height: 30px;
+  text-align: center;
+  border: 1px solid #000;
+  vertical-align: initial;
+
+  &.today {
+    color: blue;
+  }
+  &.select {
+    color: red;
+  }
+`;

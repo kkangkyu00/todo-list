@@ -1,10 +1,22 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useState, useMemo, useCallback } from 'react';
 import dayjs, { Dayjs } from 'dayjs';
-import { Button } from '@mui/material';
-import { ArrowBackIosNew as ArrowBackIcon, ArrowForwardIos as ArrowForwardIcon } from '@mui/icons-material';
-
-import styled from 'styled-components';
+import { KeyboardArrowLeft as ArrowBackIcon, KeyboardArrowRight as ArrowForwardIcon } from '@mui/icons-material';
 import { classNames, getDatesInMonth } from '@utils';
+
+import { CalendarHeader, CalendarHeaderWrapper, ArrowButton, CalendarWeek, DateItem } from './style';
+
+interface FromDateMarked {
+  startingDay?: boolean;
+  endingDay?: boolean;
+  color?: string;
+}
+
+interface FromDates {
+  startDate: Dayjs;
+  endDate: Dayjs;
+  color?: string;
+  markClass?: string;
+}
 
 interface IMarked {
   startDate?: Dayjs | string;
@@ -16,91 +28,15 @@ interface IMarked {
 interface CalendarProps {
   markedDates?: IMarked[];
   isHorizontal?: boolean;
+  onChange?: (date: Dayjs | string) => void;
 }
 
-interface Marker {
-  color: string;
-  startingDay: boolean;
-  endingDay: boolean;
-}
-
-const CalendarHeader = styled.div`
-  padding: 8px 0;
-  .calendar-year {
-    text-align: center;
-  }
-`;
-const CalendarHeaderWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-`;
-
-const ArrowButton = styled(Button)``;
-
-const CalendarWeek = styled.div`
-  position: relative;
-  height: 30px;
-`;
-const CalendarWeekEvent = styled.div`
-  position: relative;
-  height: 30px;
-`;
-
-const WeekItem = styled.div`
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-`;
-
-const DateItem = styled.div`
-  width: 100%;
-  height: 30px;
-  text-align: center;
-  border: 1px solid #000;
-  vertical-align: initial;
-
-  &.today {
-    color: blue;
-  }
-  &.select {
-    color: red;
-  }
-`;
-
-const View = styled.div`
-  height: 4px;
-`;
+const emptyPeriod = { color: 'transparent' };
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const renderPeriod = (index: number, item: IMarked) => {
-  const styles = {
-    backgroundColor: item.color
-  };
-  return <View style={styles} />;
-};
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const getItems = (items?: IMarked[], date?: Dayjs) => {
-  let h = 0;
-  return items?.map((marker) => {
-    h += 1;
-    return renderPeriod(h, marker);
-  });
-};
-
-const renderMultiMarkings = (items?: IMarked[], date?: Dayjs) => {
-  return <div>{getItems(items, date)}</div>;
-};
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const Calendar = ({ markedDates, isHorizontal }: CalendarProps) => {
+const Calendar = ({ markedDates, isHorizontal, onChange }: CalendarProps) => {
   const [calendarDate, setCalendarDate] = useState<Dayjs>(dayjs());
   const [selectedDate, setSelectedDate] = useState<Dayjs>(dayjs());
-  const [markerDates, setMarkerDates] = useState({});
 
   useEffect(() => {
     setCalendarDate(selectedDate);
@@ -112,74 +48,87 @@ const Calendar = ({ markedDates, isHorizontal }: CalendarProps) => {
 
   const handleDateClick = (date: Dayjs) => {
     setSelectedDate(date);
+    onChange?.(date);
   };
 
-  const handlePrevClick = () => {
-    setCalendarDate(calendarDate.add(-1, 'month'));
+  const handlePrevClick = () => setCalendarDate(calendarDate.add(-1, 'month'));
+  const handleNextClick = () => setCalendarDate(calendarDate.add(1, 'month'));
+
+  const generateCurrentWeek = (): React.ReactElement[] => {
+    return ['일', '월', '화', '수', '목', '금', '토'].map((value: string) => <div key={value}>{value}</div>);
   };
 
-  const handleNextClick = () => {
-    setCalendarDate(calendarDate.add(1, 'month'));
+  const renderPeriod = (index: number, item: IMarked): React.ReactElement => {
+    const styles = {
+      height: '4px',
+      backgroundColor: item.color
+    };
+    return <div key={index} style={styles} />;
   };
 
-  // test
+  const renderMultiMarkings = (items?: IMarked[]) => {
+    return items?.map((marked, index) => renderPeriod(index + 1, marked));
+  };
 
-  useEffect(() => {
-    const emptyPeriod = { color: 'transparent' };
-    const sortDates = markedDates?.sort((prev, curr) => {
-      const { startDate: prevStart, endDate: prevEnd } = prev;
-      const { startDate: currStart, endDate: currEnd } = curr;
-      return dayjs(currEnd).diff(currStart, 'day') - dayjs(prevEnd).diff(prevStart, 'day');
-    });
-    console.log(sortDates, '##############');
+  const getEmptyPeriodIndex = (prev: Record<string, FromDateMarked[]>, startDate: Dayjs, endDate: Dayjs) => {
+    const totalDays = endDate.diff(startDate, 'day') + 1;
 
-    const mArray = sortDates?.reduce((prev, curr) => {
-      const start = dayjs(curr.startDate);
-      const end = dayjs(curr.endDate);
-      const totalDays = end.diff(start, 'day') + 1;
+    let emptyIndex = 0;
+    let freeRowFound = false;
+    while (!freeRowFound) {
+      freeRowFound = true;
+      for (let i = 0; i < totalDays; i += 1) {
+        const date = startDate.add(i, 'day');
+        const dateKey = date.format('YYYY-MM-DD');
 
-      let rowIndex = 0;
-      let freeRowFound = false;
-      while (!freeRowFound) {
-        freeRowFound = true;
-        for (let i = 0; i < totalDays; i += 1) {
-          const date = start.add(i, 'day');
-          const dateStr = date.format('YYYY-MM-DD');
-
-          const period = prev[dateStr]?.periods?.[rowIndex];
-          const isWithinInterval = dayjs(date).isBetween(start, end, 'day', '[]');
-          if (period && isWithinInterval) {
-            console.log(dateStr, '###### dateStr');
-            rowIndex += 1;
-            freeRowFound = false;
-            break;
-          }
+        const period = prev[dateKey]?.[emptyIndex];
+        const isWithinInterval = dayjs(date).isBetween(startDate, endDate, 'day', '[]');
+        if (period && isWithinInterval) {
+          emptyIndex += 1;
+          freeRowFound = false;
+          break;
         }
       }
+    }
+    return emptyIndex;
+  };
+
+  const sortFormDates = useCallback(() => {
+    return markedDates
+      ?.sort((prev, curr) => {
+        const { startDate: prevStart, endDate: prevEnd } = prev;
+        const { startDate: currStart, endDate: currEnd } = curr;
+        return dayjs(currEnd).diff(currStart, 'day') - dayjs(prevEnd).diff(prevStart, 'day');
+      })
+      .map((date) => ({
+        ...date,
+        startDate: dayjs(date.startDate),
+        endDate: dayjs(date.endDate)
+      })) as unknown as FromDates[];
+  }, [markedDates]);
+
+  const markerDates = useMemo(() => {
+    const sortDates = sortFormDates();
+    const init = {} as Record<string, FromDateMarked[]>;
+    return sortDates?.reduce((prev, curr) => {
+      const temp = prev;
+      const { startDate, endDate, color } = curr;
+
+      const totalDays = endDate.diff(startDate, 'day') + 1;
+      const emptyIndex = getEmptyPeriodIndex(prev, startDate, endDate);
 
       for (let i = 0; i < totalDays; i += 1) {
-        const dateStr = start.add(i, 'day').format('YYYY-MM-DD');
-        let marking = prev[dateStr];
-
-        if (!marking) marking = {};
-        if (!marking.periods) marking.periods = [];
-
-        if (marking.periods.length <= rowIndex) {
-          marking.periods = marking.periods.concat(
-            [...Array(rowIndex + 1 - marking.periods.length)].map(() => ({ ...emptyPeriod }))
-          );
+        const dateKey = startDate.add(i, 'day').format('YYYY-MM-DD');
+        const marked = temp[dateKey] || [];
+        if (marked.length <= emptyIndex) {
+          marked.push({ ...emptyPeriod });
         }
-        marking.periods[rowIndex] = {
-          color: curr.color,
-          startingDay: i === 0,
-          endingDay: i === totalDays - 1
-        };
-        prev[dateStr] = marking;
+        marked[emptyIndex] = { color, startingDay: !i, endingDay: i === totalDays - 1 };
+        temp[dateKey] = marked;
       }
-      return prev;
-    }, {});
-    setMarkerDates(mArray);
-  }, []);
+      return temp;
+    }, init);
+  }, [sortFormDates]);
 
   return (
     <div>
@@ -195,32 +144,26 @@ const Calendar = ({ markedDates, isHorizontal }: CalendarProps) => {
         </CalendarHeaderWrapper>
         <div className="calendar-year">{calendarDate.year()}</div>
       </CalendarHeader>
+      <div>{generateCurrentWeek()}</div>
       <div>
-        {calendarDates.map((dates) => {
-          return (
-            <CalendarWeek>
-              <WeekItem>
-                {dates.map((date) => {
-                  const k = dayjs(date).format('YYYY-MM-DD');
-                  return (
-                    <DateItem
-                      onClick={() => handleDateClick(date)}
-                      className={classNames({
-                        select: dayjs(date).isSame(selectedDate, 'day'),
-                        today: dayjs(date).isSame(dayjs(), 'day')
-                      })}
-                    >
-                      <span>{date.date()}</span>
-                      {markerDates?.[k] ? (
-                        <CalendarWeekEvent>{renderMultiMarkings(markerDates?.[k]?.periods)}</CalendarWeekEvent>
-                      ) : null}
-                    </DateItem>
-                  );
-                })}
-              </WeekItem>
-            </CalendarWeek>
-          );
-        })}
+        {calendarDates.map((dates) => (
+          <CalendarWeek>
+            {dates.map((date) => {
+              const dateKey = date.format('YYYY-MM-DD');
+              const isToday = date.isToday();
+              const isSelect = date.isSame(selectedDate, 'day');
+              return (
+                <DateItem
+                  onClick={() => handleDateClick(date)}
+                  className={classNames({ today: isToday, select: isSelect })}
+                >
+                  <span>{date.date()}</span>
+                  {markerDates?.[dateKey] ? <div>{renderMultiMarkings(markerDates[dateKey])}</div> : null}
+                </DateItem>
+              );
+            })}
+          </CalendarWeek>
+        ))}
       </div>
     </div>
   );
