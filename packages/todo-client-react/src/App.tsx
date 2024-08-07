@@ -2,6 +2,7 @@ import React, { useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import CircularProgress from '@mui/material/CircularProgress';
 import styled from 'styled-components';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { HeaderContainer, TabBarContainer } from '@containers';
 // import { usePullToRefresh } from '@utils';
 
@@ -19,9 +20,9 @@ const MainLayout2 = styled.div`
     width: 100%;
     height: 50px;
     transition: 0.3s;
-
+    background: #0c0f12;
     & > span {
-      background: #ffffff;
+      //background: #ffffff;
       border-radius: 50%;
     }
   }
@@ -56,7 +57,7 @@ const App = () => {
           <MainLayout>
             <AppRoutes location={location} />
           </MainLayout>
-          <TabBarContainer />
+          {/* <TabBarContainer /> */}
         </>
       </React.Suspense>
     </MainLayout2>

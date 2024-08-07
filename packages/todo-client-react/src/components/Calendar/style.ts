@@ -47,9 +47,23 @@ export const CalenderWrapper = styled.div`
 `;
 
 //
+export const MarkedGroup = styled.div`
+  position: absolute;
+  z-index: 8;
+  top: 27px;
+  left: 0;
+  width: 100%;
+`;
 
 export const CalendarHeader = styled.div`
+  position: relative;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
   padding: 8px 0;
+  background: inherit;
   .calendar-year {
     text-align: center;
   }
@@ -67,21 +81,68 @@ export const ArrowButton = styled(Button)``;
 export const CalendarWeek = styled.div`
   position: relative;
   width: 100%;
-  height: 30px;
+  height: 40px;
   display: flex;
+  justify-content: space-around;
+  padding-top: 2px;
 `;
 
 export const DateItem = styled.div`
+  position: relative;
   width: 100%;
-  height: 30px;
+  height: 40px;
   text-align: center;
-  border: 1px solid #000;
   vertical-align: initial;
+  //display: flex;
+  //align-items: center;
+  //justify-content: center;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 24px;
 
-  &.today {
-    color: blue;
+  &.month span {
+    //color: #94a3b8;
+    color: #64748b;
+    font-weight: 400;
   }
-  &.select {
-    color: red;
+  &.today span {
+    //color: #fff;
+    //background: #424550;
+    color: #0f172a;
+    background: #bbbdc7;
+    width: 24px;
+    height: 24px;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    border-radius: 6px;
+    margin: 0 auto;
   }
+
+  &.select span {
+    //color: red;
+    width: 24px;
+    height: 24px;
+    margin: auto;
+    //background: #fb7185;
+    //color: #020617;
+    background: #9f1239;
+    color: #fff;
+    border-radius: 6px;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+  }
+`;
+
+export const DaysItem = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  font-size: 12px;
+  font-weight: 800;
+  //color: #fff;
+  color: #0f172a;
 `;

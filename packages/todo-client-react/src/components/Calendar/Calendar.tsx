@@ -1,21 +1,15 @@
 import React, { useEffect, useState, useMemo, useCallback } from 'react';
 import dayjs, { Dayjs } from 'dayjs';
+import { motion } from 'framer-motion';
 import { KeyboardArrowLeft as ArrowBackIcon, KeyboardArrowRight as ArrowForwardIcon } from '@mui/icons-material';
-import { classNames, getDatesInMonth } from '@utils';
+import { classNames, getWeekOfMonth, getDatesInMonth } from '@utils';
 
-import { CalendarHeader, CalendarHeaderWrapper, ArrowButton, CalendarWeek, DateItem } from './style';
+import { CalendarHeader, ArrowButton, CalendarWeek, DateItem, DaysItem, MarkedGroup } from './style';
 
 interface FromDateMarked {
   startingDay?: boolean;
   endingDay?: boolean;
   color?: string;
-}
-
-interface FromDates {
-  startDate: Dayjs;
-  endDate: Dayjs;
-  color?: string;
-  markClass?: string;
 }
 
 interface IMarked {
@@ -31,46 +25,58 @@ interface CalendarProps {
   onChange?: (date: Dayjs | string) => void;
 }
 
-const emptyPeriod = { color: 'transparent' };
+const DATE_HEIGHT = 40;
+const EMPTY_MARKED = { color: 'transparent' };
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const generateDayOfWeek = (): React.ReactElement[] => {
+  return ['일', '월', '화', '수', '목', '금', '토'].map((value: string) => <DaysItem key={value}>{value}</DaysItem>);
+};
+
+const renderPeriod = (index: number, item: IMarked): React.ReactElement => {
+  const styles = {
+    width: '100%',
+    height: '3px',
+    backgroundColor: item.color,
+    zIndex: 30
+  };
+  return <div key={index} style={{ position: 'relative', ...styles }} />;
+};
+
+const renderMultiMarkings = (items?: IMarked[]) => {
+  return items?.map((marked, index) => renderPeriod(index + 1, marked));
+};
+
 const Calendar = ({ markedDates, isHorizontal, onChange }: CalendarProps) => {
   const [calendarDate, setCalendarDate] = useState<Dayjs>(dayjs());
   const [selectedDate, setSelectedDate] = useState<Dayjs>(dayjs());
 
   useEffect(() => {
-    setCalendarDate(selectedDate);
-  }, [selectedDate]);
+    if (!isHorizontal) {
+      setCalendarDate(selectedDate);
+    }
+  }, [selectedDate, isHorizontal]);
 
-  const calendarDates = useMemo(() => {
-    return getDatesInMonth(calendarDate);
-  }, [calendarDate]);
+  const handlePrevClick = () => {
+    if (isHorizontal) {
+      setSelectedDate(selectedDate.add(-1, 'week'));
+    } else {
+      setCalendarDate(calendarDate.add(-1, 'month'));
+    }
+  };
+  const handleNextClick = () => {
+    if (isHorizontal) {
+      setSelectedDate(selectedDate.add(1, 'week'));
+    } else {
+      setCalendarDate(calendarDate.add(1, 'month'));
+    }
+  };
 
   const handleDateClick = (date: Dayjs) => {
     setSelectedDate(date);
     onChange?.(date);
   };
 
-  const handlePrevClick = () => setCalendarDate(calendarDate.add(-1, 'month'));
-  const handleNextClick = () => setCalendarDate(calendarDate.add(1, 'month'));
-
-  const generateCurrentWeek = (): React.ReactElement[] => {
-    return ['일', '월', '화', '수', '목', '금', '토'].map((value: string) => <div key={value}>{value}</div>);
-  };
-
-  const renderPeriod = (index: number, item: IMarked): React.ReactElement => {
-    const styles = {
-      height: '4px',
-      backgroundColor: item.color
-    };
-    return <div key={index} style={styles} />;
-  };
-
-  const renderMultiMarkings = (items?: IMarked[]) => {
-    return items?.map((marked, index) => renderPeriod(index + 1, marked));
-  };
-
-  const getEmptyPeriodIndex = (prev: Record<string, FromDateMarked[]>, startDate: Dayjs, endDate: Dayjs) => {
+  const getEmptyMarkedIndex = (prev: Record<string, FromDateMarked[]>, startDate: Dayjs, endDate: Dayjs) => {
     const totalDays = endDate.diff(startDate, 'day') + 1;
 
     let emptyIndex = 0;
@@ -81,9 +87,9 @@ const Calendar = ({ markedDates, isHorizontal, onChange }: CalendarProps) => {
         const date = startDate.add(i, 'day');
         const dateKey = date.format('YYYY-MM-DD');
 
-        const period = prev[dateKey]?.[emptyIndex];
+        const marked = prev[dateKey]?.[emptyIndex];
         const isWithinInterval = dayjs(date).isBetween(startDate, endDate, 'day', '[]');
-        if (period && isWithinInterval) {
+        if (marked && isWithinInterval) {
           emptyIndex += 1;
           freeRowFound = false;
           break;
@@ -102,9 +108,9 @@ const Calendar = ({ markedDates, isHorizontal, onChange }: CalendarProps) => {
       })
       .map((date) => ({
         ...date,
-        startDate: dayjs(date.startDate),
-        endDate: dayjs(date.endDate)
-      })) as unknown as FromDates[];
+        startDate: dayjs(date.startDate) as Dayjs,
+        endDate: dayjs(date.endDate) as Dayjs
+      }));
   }, [markedDates]);
 
   const markerDates = useMemo(() => {
@@ -115,13 +121,13 @@ const Calendar = ({ markedDates, isHorizontal, onChange }: CalendarProps) => {
       const { startDate, endDate, color } = curr;
 
       const totalDays = endDate.diff(startDate, 'day') + 1;
-      const emptyIndex = getEmptyPeriodIndex(prev, startDate, endDate);
+      const emptyIndex = getEmptyMarkedIndex(prev, startDate, endDate);
 
       for (let i = 0; i < totalDays; i += 1) {
         const dateKey = startDate.add(i, 'day').format('YYYY-MM-DD');
         const marked = temp[dateKey] || [];
         if (marked.length <= emptyIndex) {
-          marked.push({ ...emptyPeriod });
+          marked.push({ ...EMPTY_MARKED });
         }
         marked[emptyIndex] = { color, startingDay: !i, endingDay: i === totalDays - 1 };
         temp[dateKey] = marked;
@@ -130,41 +136,66 @@ const Calendar = ({ markedDates, isHorizontal, onChange }: CalendarProps) => {
     }, init);
   }, [sortFormDates]);
 
+  const calendarDates = useMemo(() => {
+    return getDatesInMonth(calendarDate);
+  }, [calendarDate]);
+
   return (
-    <div>
+    // <div style={{ overflowX: 'hidden', backgroundColor: '#020617', color: '#F8FAFC' }}>
+    <div style={{ overflowX: 'hidden', backgroundColor: '#fff', color: '#0F172A' }}>
       <CalendarHeader>
-        <CalendarHeaderWrapper>
-          <ArrowButton onClick={handlePrevClick}>
-            <ArrowBackIcon />
-          </ArrowButton>
-          <div className="calendar-month">{calendarDate.month() + 1}월</div>
-          <ArrowButton onClick={handleNextClick}>
-            <ArrowForwardIcon />
-          </ArrowButton>
-        </CalendarHeaderWrapper>
-        <div className="calendar-year">{calendarDate.year()}</div>
+        <ArrowButton onClick={handlePrevClick}>
+          <ArrowBackIcon />
+        </ArrowButton>
+        <div className="calendar-month">
+          {calendarDate.year()} {calendarDate.month() + 1}월
+        </div>
+        <ArrowButton onClick={handleNextClick}>
+          <ArrowForwardIcon />
+        </ArrowButton>
       </CalendarHeader>
-      <div>{generateCurrentWeek()}</div>
-      <div>
+      <div
+        style={{
+          position: 'relative',
+          zIndex: 10,
+          background: 'inherit',
+          display: 'flex',
+          justifyContent: 'space-around'
+        }}
+      >
+        {generateDayOfWeek()}
+      </div>
+      <motion.div
+        layout
+        animate={{
+          position: 'relative',
+          overflow: 'hidden',
+          top: isHorizontal ? `-${DATE_HEIGHT * (getWeekOfMonth(selectedDate) - 1)}px` : 0,
+          height: isHorizontal ? `${DATE_HEIGHT * (getWeekOfMonth(selectedDate) + 1)}px` : 'auto'
+        }}
+      >
         {calendarDates.map((dates) => (
           <CalendarWeek>
             {dates.map((date) => {
               const dateKey = date.format('YYYY-MM-DD');
-              const isToday = date.isToday();
-              const isSelect = date.isSame(selectedDate, 'day');
+              const today = date.isToday();
+              const select = date.isSame(selectedDate, 'day');
+              const month = date.isSame(calendarDate, 'month');
               return (
                 <DateItem
+                  className={classNames({ today, select, month: !month })}
                   onClick={() => handleDateClick(date)}
-                  className={classNames({ today: isToday, select: isSelect })}
                 >
                   <span>{date.date()}</span>
-                  {markerDates?.[dateKey] ? <div>{renderMultiMarkings(markerDates[dateKey])}</div> : null}
+                  {markerDates?.[dateKey] ? (
+                    <MarkedGroup>{renderMultiMarkings(markerDates[dateKey])}</MarkedGroup>
+                  ) : null}
                 </DateItem>
               );
             })}
           </CalendarWeek>
         ))}
-      </div>
+      </motion.div>
     </div>
   );
 };

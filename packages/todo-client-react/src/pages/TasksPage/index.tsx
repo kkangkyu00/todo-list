@@ -7,8 +7,7 @@ import styled from 'styled-components';
 import { HorizontalCalendar } from '@components';
 import dayjs, { Dayjs } from 'dayjs';
 import { TaskCard } from '@components/Card';
-
-const StyleCalendar = styled.div``;
+import TopSheet from '@pages/TasksPage/TopSheet';
 
 const WeekTaskItem = styled.div`
   position: absolute;
@@ -61,39 +60,40 @@ const TasksPage = () => {
   };
 
   return (
-    <div>
-      <StyleCalendar>
-        <HorizontalCalendar />
-      </StyleCalendar>
-      <div>
-        <div>일별로 보기</div>
-        <div>주별로 보기</div>
-      </div>
-      <div style={{ position: 'relative', height: '100%', width: '100%', paddingTop: 40 }}>
-        {new Array(23).fill(0).map((_, i) => (
-          <TimeItem>
-            {dayjs()
-              .hour(i + 1)
-              .format('A hh')}
-          </TimeItem>
-        ))}
-        <Reorder.Group axis="x" values={[]} onReorder={() => {}} style={{ paddingLeft: 60 }}>
-          {tasks.map((t, zIndex) => {
-            const startPoint = getHourDuration(t.startDate);
-            const endPoint = getHourDuration(t.endDate);
-
-            const top = `${84 * startPoint - 44}px`;
-            const height = `${84 * (endPoint - startPoint)}px`;
-            return (
-              <WeekTaskItem style={{ zIndex, top, height }}>
-                <TaskCard name={t.name} desc={t.description} startDate={t.startDate} endDate={t.endDate} />
-              </WeekTaskItem>
-            );
-          })}
-        </Reorder.Group>
-      </div>
+    <div style={{ backgroundColor: '#0c0f12' }}>
+      <TopSheet />
     </div>
   );
 };
 
+// <div style={{ position: 'relative', zIndex: 2, background: '#fff' }}>
+//   <div>
+//     <div>일별로 보기</div>
+//     <div>주별로 보기</div>
+//   </div>
+//   <div style={{ position: 'relative', height: '100%', width: '100%', paddingTop: 40 }}>
+//     {new Array(23).fill(0).map((_, i) => (
+//       <TimeItem>
+//         {dayjs()
+//           .hour(i + 1)
+//           .format('A hh')}
+//       </TimeItem>
+//     ))}
+//     <Reorder.Group axis="x" values={[]} onReorder={() => {
+//     }} style={{ paddingLeft: 60 }}>
+//       {tasks.map((t, zIndex) => {
+//         const startPoint = getHourDuration(t.startDate);
+//         const endPoint = getHourDuration(t.endDate);
+//
+//         const top = `${84 * startPoint - 44}px`;
+//         const height = `${84 * (endPoint - startPoint)}px`;
+//         return (
+//           <WeekTaskItem style={{ zIndex, top, height }}>
+//             <TaskCard name={t.name} desc={t.description} startDate={t.startDate} endDate={t.endDate} />
+//           </WeekTaskItem>
+//         );
+//       })}
+//     </Reorder.Group>
+//   </div>
+// </div>
 export default TasksPage;

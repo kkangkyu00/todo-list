@@ -17,8 +17,15 @@ export const getDatesInWeek = (date: Dayjs) => {
   return getDatesFromRange(startDate, endDate);
 };
 
-//
+export const getWeekOfMonth = (date: Dayjs) => {
+  const currentDate = date.date();
+  const firstDay = date.startOf('month').day();
+  return Math.ceil((currentDate + firstDay) / 7);
+};
 
+/**
+ * 달력 날짜 구하기
+ */
 const getPrevDates = (date: Dayjs | string) => {
   const firstDayOfMonth = dayjs(date).startOf('month').day();
   const dates: Dayjs[] = [];
