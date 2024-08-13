@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 import { useLocation } from 'react-router-dom';
+import { useForm, FormProvider } from 'react-hook-form';
 import CircularProgress from '@mui/material/CircularProgress';
 import styled from 'styled-components';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -44,6 +45,7 @@ const MainLayout = styled.div`
 const App = () => {
   const ref = useRef<HTMLDivElement>(null);
   const location = useLocation();
+  const methods = useForm();
   // usePullToRefresh(ref);
 
   return (
@@ -55,7 +57,9 @@ const App = () => {
         <>
           <HeaderContainer />
           <MainLayout>
-            <AppRoutes location={location} />
+            <FormProvider {...methods}>
+              <AppRoutes location={location} />
+            </FormProvider>
           </MainLayout>
           {/* <TabBarContainer /> */}
         </>
