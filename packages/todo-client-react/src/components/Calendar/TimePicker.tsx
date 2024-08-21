@@ -33,7 +33,8 @@ const StyledSwiperSlide = styled(SwiperSlide)`
   -webkit-tap-highlight-color: transparent;
 `;
 
-// const TIME_MINUTES =
+const TIME_HOURS = new Array(12).fill(0);
+const TIME_MINUTES = new Array(60).fill(0);
 
 const TimePicker: React.FC = () => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -54,18 +55,18 @@ const TimePicker: React.FC = () => {
 
   return (
     <TimePickerContainer>
-      <Swiper {...swiperDefaultOption} loop={false} className="swiper-ampm">
+      <Swiper {...swiperDefaultOption} loop={false} slidesPerView={4} className="swiper-ampm">
         <StyledSwiperSlide>오전</StyledSwiperSlide>
         <StyledSwiperSlide>오후</StyledSwiperSlide>
       </Swiper>
       <Swiper {...swiperDefaultOption} className="swiper-hours">
-        {new Array(12).fill(0).map((_, i) => (
+        {TIME_HOURS.map((_, i) => (
           <StyledSwiperSlide>{i + 1}</StyledSwiperSlide>
         ))}
       </Swiper>
       <div className="">:</div>
       <Swiper {...swiperDefaultOption} className="swiper-minutes">
-        {new Array(60).fill(0).map((_, i) => (
+        {TIME_MINUTES.map((_, i) => (
           <StyledSwiperSlide>{String(i).padStart(2, '0')}</StyledSwiperSlide>
         ))}
       </Swiper>

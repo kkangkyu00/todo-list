@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import styled from 'styled-components';
-import { ToggleButtonGroup, ToggleButton, Button, Dialog, DialogActions } from '@mui/material';
+import { ToggleButtonGroup, ToggleButton, Button } from '@mui/material';
 import { Input } from '@components';
-import Calendar from '@components/Calendar/Calendar';
-// import DatePicker from '@components/Calendar/DatePicker';
-import TimePicker from '@components/Calendar/TimePicker';
+import DateModal from '@pages/TaskAddPage/DateModal';
 
 const StyledInput = styled(Input)`
   width: 100%;
@@ -26,21 +24,6 @@ const ColorButton = styled(ToggleButton)<{ $color?: string }>`
   }
 `;
 
-const ModalWrapper = styled.div`
-  width: calc(100% - 32px);
-  height: calc(100% - 60px);
-  padding: 16px;
-  background: #fff;
-`;
-
-const StyledModal = styled(Dialog)`
-  .MuiDialog-paper {
-    width: 100%;
-    height: 100%;
-    margin: 32px 18px;
-  }
-`;
-
 interface FormValue {
   title?: string;
   description?: string;
@@ -50,7 +33,6 @@ interface FormValue {
 
 const TaskAddPage = () => {
   const [open, setOpen] = useState<boolean>(false);
-  const [timeOpen, setTimeOpen] = useState<boolean>(false);
   const { control, handleSubmit } = useForm<FormValue>({
     defaultValues: {
       title: '',
@@ -109,56 +91,7 @@ const TaskAddPage = () => {
         />
         <StyledSubmitButton type="submit">submit</StyledSubmitButton>
       </form>
-      <StyledModal open={open}>
-        <ModalWrapper>
-          <div>
-            <Calendar />
-            <div>
-              <Button>오늘</Button>
-              <Button>내일</Button>
-              <Button>다음주</Button>
-              <Button>다음달</Button>
-            </div>
-            <div>시간</div>
-            <div>
-              <Input
-                inputLabel="시작일"
-                formFieldProps={{ name: 'startDate', control }}
-                onClick={() => setTimeOpen(true)}
-              />
-              <Input
-                inputLabel="종료일"
-                formFieldProps={{ name: 'endDate', control }}
-                onClick={() => setTimeOpen(true)}
-              />
-            </div>
-
-            <div>aa</div>
-          </div>
-          <DialogActions>
-            <Button onClick={handleCloseModal}>취소</Button>
-            <Button>확인</Button>
-          </DialogActions>
-        </ModalWrapper>
-      </StyledModal>
-
-      <StyledModal open={timeOpen} hideBackdrop>
-        <ModalWrapper>
-          <div>
-            <TimePicker />
-            <div>
-              <Button>오늘</Button>
-              <Button>내일</Button>
-              <Button>다음주</Button>
-              <Button>다음달</Button>
-            </div>
-          </div>
-          <DialogActions>
-            <Button onClick={() => setTimeOpen(false)}>취소</Button>
-            <Button onClick={() => setTimeOpen(false)}>확인</Button>
-          </DialogActions>
-        </ModalWrapper>
-      </StyledModal>
+      <DateModal open={open} onClose={handleCloseModal} />
     </div>
   );
 };

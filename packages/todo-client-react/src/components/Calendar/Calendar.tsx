@@ -20,6 +20,7 @@ interface IMarked {
 }
 
 interface CalendarProps {
+  date?: Dayjs | string;
   markedDates?: IMarked[];
   isHorizontal?: boolean;
   onChange?: (date: Dayjs | string) => void;
@@ -46,9 +47,13 @@ const renderMultiMarkings = (items?: IMarked[]) => {
   return items?.map((marked, index) => renderPeriod(index + 1, marked));
 };
 
-const Calendar = ({ markedDates, isHorizontal, onChange }: CalendarProps) => {
-  const [calendarDate, setCalendarDate] = useState<Dayjs>(dayjs());
-  const [selectedDate, setSelectedDate] = useState<Dayjs>(dayjs());
+const Calendar = ({ date: initDate, markedDates, isHorizontal, onChange }: CalendarProps) => {
+  const [calendarDate, setCalendarDate] = useState<Dayjs>(dayjs(initDate));
+  const [selectedDate, setSelectedDate] = useState<Dayjs>(dayjs(initDate));
+
+  useEffect(() => {
+    setSelectedDate(dayjs(initDate));
+  }, [initDate]);
 
   useEffect(() => {
     if (!isHorizontal) {
@@ -166,7 +171,6 @@ const Calendar = ({ markedDates, isHorizontal, onChange }: CalendarProps) => {
         {generateDayOfWeek()}
       </div>
       <motion.div
-        layout
         animate={{
           position: 'relative',
           overflow: 'hidden',

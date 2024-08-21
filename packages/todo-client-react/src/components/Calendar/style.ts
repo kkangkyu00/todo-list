@@ -76,7 +76,17 @@ export const CalendarHeaderWrapper = styled.div`
   width: 100%;
 `;
 
-export const ArrowButton = styled(Button)``;
+export const ArrowButton = styled(Button)`
+  &.MuiButton-root,
+  &.MuiButton-root:hover,
+  &.MuiButton-root:active {
+    min-width: 24px;
+    padding: 0;
+    margin: 0 16px;
+    color: #000;
+    background: #bbbec8;
+  }
+`;
 
 export const CalendarWeek = styled.div`
   position: relative;
