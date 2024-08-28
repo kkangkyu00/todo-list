@@ -1,42 +1,9 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useForm, FormProvider, FieldValues, Controller } from 'react-hook-form';
-import { Button, InputLabel, Grid } from '@mui/material';
-import { Error } from '@mui/icons-material';
+import { InputLabel, Grid } from '@mui/material';
 import { Input, ToggleButtonGroup } from '@components';
-
-import styled from 'styled-components';
-
-const ErrorMessageWrapper = styled.div`
-  display: flex;
-  align-items: center;
-
-  margin: 6px 0;
-  padding: 0 2px;
-  font-size: 12px;
-  font-weight: 600;
-  line-height: 18px;
-  color: red;
-
-  svg {
-    width: 18px;
-    height: 18px;
-    padding-right: 2px;
-  }
-`;
-
-interface ErrorMessageProps {
-  error?: string;
-}
-
-export const ErrorMessage = ({ error }: ErrorMessageProps) => {
-  if (!error) return null;
-  return (
-    <ErrorMessageWrapper>
-      <Error />
-      {error}
-    </ErrorMessageWrapper>
-  );
-};
+import { ErrorMessage } from '@components/Form/ErrorMessage';
+import DatePicker from '@components/Picker/DatePicker';
 
 interface IField {
   component?: React.ReactNode;
@@ -51,48 +18,41 @@ interface IField {
 interface DynamicFormProps<TFormValue> {
   fields: IField[];
   values?: TFormValue;
-  onChange?: (name: string, value: TFormValue) => void;
   onSubmit?: (value: TFormValue) => void;
+  onChange?: (name: string, value: TFormValue) => void;
   buttonSubmit?: React.ReactNode;
 }
 
-const componentMap = (field: string, props?: object) => {
+const componentMap = (field: string, props: object) => {
   switch (field) {
     case 'input':
       return <Input {...props} />;
     case 'toggleGroup':
       return <ToggleButtonGroup {...props} />;
+    case 'datePicker':
+      return <DatePicker {...props} />;
     default:
-      return <Input {...props} />;
+      return null;
   }
 };
 
 const DynamicForm = <TFormValue extends FieldValues>({
   fields,
   values,
-  onSubmit,
   onChange,
+  onSubmit,
   buttonSubmit
 }: DynamicFormProps<TFormValue>) => {
-  const formMethods = useForm<TFormValue>({ mode: 'onSubmit', reValidateMode: 'onSubmit' });
+  const formMethods = useForm<TFormValue>({ mode: 'onSubmit', reValidateMode: 'onSubmit', values });
   const { errors } = formMethods.formState;
 
-  useEffect(() => {
-    // formMethods.setValue({ ...values });
-    console.log(values);
-  }, [values]);
+  const handleChange = ({ target }: FieldValues) => onChange?.(target.name, target.value);
 
-  const handleSubmit2 = (data: TFormValue) => {
-    onSubmit?.(data);
-  };
-
-  const handleChange = ({ target }: FieldValues) => {
-    onChange?.(target.name, target.value);
-  };
+  const submit = (data: TFormValue) => onSubmit?.(data);
 
   return (
     <FormProvider {...formMethods}>
-      <form autoComplete="off" onSubmit={formMethods.handleSubmit(handleSubmit2)} onChange={handleChange}>
+      <form autoComplete="off" onSubmit={formMethods.handleSubmit(submit)} onChange={handleChange}>
         <Grid container spacing={2}>
           {fields.map(({ name, label, rules, ...fieldItem }) => (
             <Controller
@@ -116,7 +76,7 @@ const DynamicForm = <TFormValue extends FieldValues>({
             />
           ))}
         </Grid>
-        {buttonSubmit || <Button type="submit">완료</Button>}
+        {buttonSubmit}
       </form>
     </FormProvider>
   );

@@ -1,12 +1,9 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { Button, InputAdornment } from '@mui/material';
-import { CalendarMonth as CalendarMonthIcon } from '@mui/icons-material';
+import { Button } from '@mui/material';
+import { ArrowBackIos as ArrowBackIosIcon } from '@mui/icons-material';
 import { DynamicForm } from '@components';
-import DateModal from '@pages/TaskAddPage/DateModal';
 import { TaskAddContainer } from '@pages/TaskAddPage/style';
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-import { Dayjs } from 'dayjs';
 
 const HeaderWrapper = styled.div`
   height: 50px;
@@ -21,7 +18,6 @@ const StyledSubmit = styled.div`
   left: 0;
   width: calc(100% - 16px);
   padding: 8px;
-  //background: #212123;
 
   button {
     width: 100%;
@@ -43,9 +39,49 @@ interface FormValue {
   color?: string;
 }
 
+const formOptions = [
+  {
+    field: 'input',
+    name: 'title',
+    label: '제목',
+    rules: { required: '제목을 입력해주세요.' },
+    props: { inputProps: { placeholder: '제목', maxLength: 25 } }
+  },
+  {
+    field: 'input',
+    name: 'description',
+    label: '자세한 설명',
+    props: { multiline: true, rows: 5, inputProps: { maxLength: 100 } }
+  },
+  {
+    name: 'startDate',
+    field: 'datePicker',
+    label: '시작일',
+    grid: 2
+  },
+  {
+    name: 'endDate',
+    field: 'datePicker',
+    label: '종료일',
+    grid: 2
+  },
+  {
+    name: 'priority',
+    field: 'toggleGroup',
+    label: '우선순위',
+    props: {
+      buttons: [
+        { value: 'LOW', label: '낮음' },
+        { value: 'MIDDLE', label: '중간' },
+        { value: 'HIGH', label: '높음' }
+      ]
+    }
+  }
+];
+
 const TaskAddPage = () => {
-  const [open, setOpen] = useState<boolean>(false);
-  const [datas, setDatas] = useState<FormValue>({
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [formData, setFormData] = useState<FormValue>({
     title: '',
     description: '',
     startDate: '',
@@ -53,95 +89,9 @@ const TaskAddPage = () => {
     priority: 'MIDDLE'
   });
 
-  const onSubmit = (data: FormValue) => {
+  const handleFormSubmit = (data: FormValue) => {
     console.log(data, '############ onSubmit');
   };
-
-  const handlePickerClick = (name: string) => {
-    console.log(name, '########### name');
-    setOpen((prevState) => !prevState);
-  };
-
-  const handleCloseModal = () => {
-    setOpen((prevState) => !prevState);
-  };
-
-  const handleSubmit = (value: Dayjs) => {
-    console.log(value.format('YYYY-MM-DD HH:mm'), '###########');
-  };
-
-  const handleChange = (name: string, value: FormValue) => {
-    console.log(name, value, '################');
-    setDatas(value);
-  };
-
-  const formOptions = [
-    {
-      field: 'input',
-      name: 'title',
-      label: '제목',
-      rules: { required: '제목을 입력해주세요.' },
-      props: {
-        inputProps: { placeholder: '제목', maxLength: 25 }
-      }
-    },
-    {
-      field: 'input',
-      name: 'description',
-      label: '자세한 설명',
-      props: {
-        multiline: true,
-        rows: 5,
-        inputProps: { maxLength: 100 }
-      }
-    },
-    {
-      name: 'startDate',
-      field: 'input',
-      label: '시작일',
-      grid: 2,
-      props: {
-        onClick: () => handlePickerClick('startDate'),
-        InputProps: {
-          readOnly: true,
-          endAdornment: (
-            <InputAdornment position="start">
-              <CalendarMonthIcon />
-            </InputAdornment>
-          )
-        }
-      }
-    },
-    {
-      name: 'endDate',
-      field: 'input',
-      label: '종료일',
-      grid: 2,
-      props: {
-        onClick: () => handlePickerClick('endDate'),
-        InputProps: {
-          readOnly: true,
-          endAdornment: (
-            <InputAdornment position="start">
-              <CalendarMonthIcon />
-            </InputAdornment>
-          )
-        }
-      }
-    },
-    {
-      name: 'priority',
-      field: 'toggleGroup',
-      label: '우선순위',
-      props: {
-        buttons: [
-          { value: 'LOW', label: '낮음' },
-          { value: 'MIDDLE', label: '중간' },
-          { value: 'HIGH', label: '높음' }
-        ]
-      }
-    }
-  ];
 
   return (
     <TaskAddContainer>
@@ -151,16 +101,14 @@ const TaskAddPage = () => {
       </HeaderWrapper>
       <DynamicForm
         fields={formOptions}
-        values={datas}
-        onChange={handleChange}
-        onSubmit={onSubmit}
+        values={formData}
+        onSubmit={handleFormSubmit}
         buttonSubmit={
           <StyledSubmit>
             <Button type="submit">확인</Button>
           </StyledSubmit>
         }
       />
-      <DateModal open={open} onClose={handleCloseModal} onSubmit={handleSubmit} />
     </TaskAddContainer>
   );
 };

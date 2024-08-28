@@ -8,7 +8,6 @@ interface FormProps {
 }
 
 const Form = ({ children, formMethods, onSubmit }: FormProps) => {
-  // const { handleSubmit } = formMethods;
   return (
     <FormProvider {...formMethods}>
       <form onSubmit={onSubmit}>{children}</form>

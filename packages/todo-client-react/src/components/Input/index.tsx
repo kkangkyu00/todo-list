@@ -3,11 +3,13 @@ import { useController, FieldValues, FieldPath, UseControllerProps } from 'react
 import { TextField, TextFieldProps, InputLabel } from '@mui/material';
 import styled from 'styled-components';
 
-const TextFieldWrapper = styled.div`
+export const TextFieldWrapper = styled.div`
   & .MuiOutlinedInput-root {
     border-radius: 6px;
+    padding-right: 0;
     input {
       padding: 12px;
+      font-size: 14px;
     }
     input:invalid + fieldset {
       border-color: red;
