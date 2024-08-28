@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useForm, FormProvider } from 'react-hook-form';
-import CircularProgress from '@mui/material/CircularProgress';
+// import CircularProgress from '@mui/material/CircularProgress';
 import styled from 'styled-components';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { HeaderContainer, TabBarContainer } from '@containers';
@@ -35,7 +35,7 @@ const MainLayout2 = styled.div`
 const MainLayout = styled.div`
   //height: 100%;
   //padding: 0px 16px;
-  padding-top: 44px;
+  //padding-top: 44px;
 `;
 
 // const apiClient = axios.create({
@@ -50,12 +50,9 @@ const App = () => {
 
   return (
     <MainLayout2 className="App" ref={ref}>
-      <div className="refresh-spinner">
-        <CircularProgress />
-      </div>
       <React.Suspense fallback="">
         <>
-          <HeaderContainer />
+          {/* <HeaderContainer /> */}
           <MainLayout>
             <FormProvider {...methods}>
               <AppRoutes location={location} />

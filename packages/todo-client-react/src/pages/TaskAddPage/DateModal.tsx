@@ -10,7 +10,7 @@ import { ModalWrapper, StyledButtonGroup, ButtonItem, InputWrapper } from './sty
 interface DateModalProps {
   open?: boolean;
   onClose?: () => void;
-  onSubmit?: () => void;
+  onSubmit?: (value: Dayjs) => void;
 }
 
 const DateModal: React.FC<DateModalProps> = ({ open = false, onClose, onSubmit }: DateModalProps) => {
@@ -19,18 +19,19 @@ const DateModal: React.FC<DateModalProps> = ({ open = false, onClose, onSubmit }
   const [timeOpen, setTimeOpen] = useState<boolean>(false);
 
   const handleOpenTimeModal = () => {
-    console.log('####### open time');
     setTimeOpen(true);
   };
 
   const handleSubmit = () => {
     setTime(dayjs());
     setTimeOpen(false);
-    onSubmit?.();
+    const date = selectedDate.format('YYYY-MM-DD');
+    const currTime = time.format('HH:mm');
+    onSubmit?.(dayjs(`${date} ${currTime}`));
+    onClose?.();
   };
 
   const handleDateChange = (date: Dayjs | string) => {
-    console.log(dayjs(date).format('YYYY-MM-DD'), '#################');
     setSelectedDate(dayjs(date));
   };
 

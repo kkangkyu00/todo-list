@@ -1,6 +1,28 @@
 import styled from 'styled-components';
 import { ToggleButton, ToggleButtonGroup } from '@mui/material';
 
+export const TaskAddContainer = styled.div`
+  //background: #212123;
+  padding: 16px;
+  //color: #fff;
+  //form {
+  //  display: flex;
+  //  flex-direction: column;
+  //  gap: 16px;
+  //}
+  .description .MuiInputBase-root.MuiOutlinedInput-root {
+    height: 140px;
+  }
+
+  .MuiInputLabel-root {
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 24px;
+    padding-bottom: 4px;
+    //color: #fff;
+  }
+`;
+
 export const ModalWrapper = styled.div`
   padding: 16px;
   background: #fff;

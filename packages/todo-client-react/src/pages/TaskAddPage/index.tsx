@@ -1,49 +1,60 @@
 import React, { useState } from 'react';
-import { useForm, Controller } from 'react-hook-form';
 import styled from 'styled-components';
-import { ToggleButtonGroup, ToggleButton, Button } from '@mui/material';
-import { Input } from '@components';
+import { Button, InputAdornment } from '@mui/material';
+import { CalendarMonth as CalendarMonthIcon } from '@mui/icons-material';
+import { DynamicForm } from '@components';
 import DateModal from '@pages/TaskAddPage/DateModal';
+import { TaskAddContainer } from '@pages/TaskAddPage/style';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import { Dayjs } from 'dayjs';
 
-const StyledInput = styled(Input)`
-  width: 100%;
+const HeaderWrapper = styled.div`
+  height: 50px;
+  display: flex;
+  font-size: 18px;
+  font-weight: 600;
 `;
 
-const StyledSubmitButton = styled(Button)`
-  width: 100%;
-`;
+const StyledSubmit = styled.div`
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: calc(100% - 16px);
+  padding: 8px;
+  //background: #212123;
 
-const ColorButton = styled(ToggleButton)<{ $color?: string }>`
-  &.MuiButtonBase-root.MuiToggleButton-root {
-    padding: 10px;
-    width: 10px;
-    height: 10px;
-    border: none;
-    border-radius: 50% !important;
-    background: ${({ $color }) => $color};
+  button {
+    width: 100%;
+    height: 54px;
+    font-size: 20px;
+    font-weight: 700;
+    color: #fff;
+    background: #5267fb;
+    border-radius: 6px;
   }
 `;
 
 interface FormValue {
   title?: string;
   description?: string;
+  startDate: string;
+  endDate: string;
   priority?: 'LOW' | 'MIDDLE' | 'HIGH';
   color?: string;
 }
 
 const TaskAddPage = () => {
   const [open, setOpen] = useState<boolean>(false);
-  const { control, handleSubmit } = useForm<FormValue>({
-    defaultValues: {
-      title: '',
-      description: '',
-      priority: 'LOW',
-      color: 'red'
-    }
+  const [datas, setDatas] = useState<FormValue>({
+    title: '',
+    description: '',
+    startDate: '',
+    endDate: '',
+    priority: 'MIDDLE'
   });
 
   const onSubmit = (data: FormValue) => {
-    console.log(data);
+    console.log(data, '############ onSubmit');
   };
 
   const handlePickerClick = (name: string) => {
@@ -55,44 +66,102 @@ const TaskAddPage = () => {
     setOpen((prevState) => !prevState);
   };
 
+  const handleSubmit = (value: Dayjs) => {
+    console.log(value.format('YYYY-MM-DD HH:mm'), '###########');
+  };
+
+  const handleChange = (name: string, value: FormValue) => {
+    console.log(name, value, '################');
+    setDatas(value);
+  };
+
+  const formOptions = [
+    {
+      field: 'input',
+      name: 'title',
+      label: '제목',
+      rules: { required: '제목을 입력해주세요.' },
+      props: {
+        inputProps: { placeholder: '제목', maxLength: 25 }
+      }
+    },
+    {
+      field: 'input',
+      name: 'description',
+      label: '자세한 설명',
+      props: {
+        multiline: true,
+        rows: 5,
+        inputProps: { maxLength: 100 }
+      }
+    },
+    {
+      name: 'startDate',
+      field: 'input',
+      label: '시작일',
+      grid: 2,
+      props: {
+        onClick: () => handlePickerClick('startDate'),
+        InputProps: {
+          readOnly: true,
+          endAdornment: (
+            <InputAdornment position="start">
+              <CalendarMonthIcon />
+            </InputAdornment>
+          )
+        }
+      }
+    },
+    {
+      name: 'endDate',
+      field: 'input',
+      label: '종료일',
+      grid: 2,
+      props: {
+        onClick: () => handlePickerClick('endDate'),
+        InputProps: {
+          readOnly: true,
+          endAdornment: (
+            <InputAdornment position="start">
+              <CalendarMonthIcon />
+            </InputAdornment>
+          )
+        }
+      }
+    },
+    {
+      name: 'priority',
+      field: 'toggleGroup',
+      label: '우선순위',
+      props: {
+        buttons: [
+          { value: 'LOW', label: '낮음' },
+          { value: 'MIDDLE', label: '중간' },
+          { value: 'HIGH', label: '높음' }
+        ]
+      }
+    }
+  ];
+
   return (
-    <div>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <StyledInput inputLabel="제목" formFieldProps={{ name: 'title', control }} />
-        <StyledInput inputLabel="설명" formFieldProps={{ name: 'description', control }} />
-        <div>
-          <Button onClick={() => handlePickerClick('startDate')}>startDate</Button>
-          <Button onClick={() => handlePickerClick('endDate')}>endDate</Button>
-        </div>
-        <Controller
-          name="priority"
-          control={control}
-          render={({ field }) => (
-            <ToggleButtonGroup exclusive value={field.value} onChange={field.onChange}>
-              <ToggleButton value="LOW">LOW</ToggleButton>
-              <ToggleButton value="MIDDLE">MIDDLE</ToggleButton>
-              <ToggleButton value="HIGH">HIGH</ToggleButton>
-            </ToggleButtonGroup>
-          )}
-        />
-        <Controller
-          name="color"
-          control={control}
-          render={({ field }) => (
-            <ToggleButtonGroup exclusive value={field.value} onChange={field.onChange}>
-              <ColorButton value="red" $color="red" />
-              <ColorButton value="yellow" $color="yellow" />
-              <ColorButton value="green" $color="green" />
-              <ColorButton value="blue" $color="blue" />
-              <ColorButton value="blue2" $color="blue" />
-              <ColorButton value="blue3" $color="#aebcc0" />
-            </ToggleButtonGroup>
-          )}
-        />
-        <StyledSubmitButton type="submit">submit</StyledSubmitButton>
-      </form>
-      <DateModal open={open} onClose={handleCloseModal} />
-    </div>
+    <TaskAddContainer>
+      <HeaderWrapper>
+        <ArrowBackIosIcon />
+        <div>일정 등록하기</div>
+      </HeaderWrapper>
+      <DynamicForm
+        fields={formOptions}
+        values={datas}
+        onChange={handleChange}
+        onSubmit={onSubmit}
+        buttonSubmit={
+          <StyledSubmit>
+            <Button type="submit">확인</Button>
+          </StyledSubmit>
+        }
+      />
+      <DateModal open={open} onClose={handleCloseModal} onSubmit={handleSubmit} />
+    </TaskAddContainer>
   );
 };
 
