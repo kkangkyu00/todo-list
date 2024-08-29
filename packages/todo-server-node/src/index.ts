@@ -1,9 +1,10 @@
 import mongoose from 'mongoose';
-import express, { Request, Response } from 'express';
+import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 
 import user from './routes/user';
+import task from './routes/task';
 
 const app = express();
 const port = 5000;
@@ -19,16 +20,10 @@ mongoose
   .catch((err) => console.log(err));
 
 app.use(express.json());
-// app.use(express.static('build'));
-
 app.use(cors());
 
-app.get('/', (req: Request, res: Response) => {
-  res.send('welcome!');
-});
-
-// app.use('/api/auth', auth);
 app.use('/api/user', user);
+app.use('/todo-server-node/api/v1/task', task);
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);

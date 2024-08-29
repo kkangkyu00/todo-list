@@ -1,11 +1,11 @@
 import { apiClient } from './authClient';
 
 export interface ITask {
-  idx: number;
-  name: string;
+  title?: string;
+  description?: string;
   startDate: string;
   endDate: string;
-  desc?: string;
+  priority?: 'LOW' | 'MIDDLE' | 'HIGH';
 }
 
 export const getTasks = async () => {

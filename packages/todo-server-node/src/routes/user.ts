@@ -5,8 +5,6 @@ import User from '../models/user';
 
 const router = express.Router();
 
-// router.use('/');
-
 router.get('/', () => {
   console.log('############# 1');
 });

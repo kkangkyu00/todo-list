@@ -36,6 +36,9 @@ const UserSchema: Schema = new mongoose.Schema({
     type: String,
     maxlength: 50
   }
+}, {
+  collection: 'User',
+  versionKey : false
 });
 
 export default mongoose.model<IUser>('User', UserSchema);

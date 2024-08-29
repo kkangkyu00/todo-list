@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Button } from '@mui/material';
 import { ArrowBackIos as ArrowBackIosIcon } from '@mui/icons-material';
 import { DynamicForm } from '@components';
 import { TaskAddContainer } from '@pages/TaskAddPage/style';
+import { useTasks, useSaveTask } from '@hooks/task';
 
 const HeaderWrapper = styled.div`
   height: 50px;
@@ -36,7 +37,6 @@ interface FormValue {
   startDate: string;
   endDate: string;
   priority?: 'LOW' | 'MIDDLE' | 'HIGH';
-  color?: string;
 }
 
 const formOptions = [
@@ -80,6 +80,8 @@ const formOptions = [
 ];
 
 const TaskAddPage = () => {
+  const { data } = useTasks();
+  const { mutate } = useSaveTask();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [formData, setFormData] = useState<FormValue>({
     title: '',
@@ -89,8 +91,13 @@ const TaskAddPage = () => {
     priority: 'MIDDLE'
   });
 
-  const handleFormSubmit = (data: FormValue) => {
-    console.log(data, '############ onSubmit');
+  useEffect(() => {
+    console.log(data, '####');
+  }, [data]);
+
+  const handleFormSubmit = (submitData: FormValue) => {
+    console.log(submitData, '############ onSubmit');
+    mutate(submitData);
   };
 
   return (

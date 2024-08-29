@@ -5,6 +5,7 @@
       "es5"
     ],
     "target": "es5",
+    "preserveValueImports": false,
     "module": "commonjs",
     "typeRoots": ["node_modules/@types"],
     "moduleResolution": "node",

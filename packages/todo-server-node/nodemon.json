@@ -7,5 +7,5 @@
   "ignore": [
     "src/**/*.{spec,test}.ts"
   ],
-  "exec": "ts-node -r tsconfig-paths/register --transpile-only src/index.ts"
+  "exec": "tsx -r tsconfig-paths/register src/index.ts"
 }

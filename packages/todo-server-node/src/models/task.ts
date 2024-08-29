@@ -1,30 +1,29 @@
-import mongoose, { Document, Schema } from 'mongoose';
+import mongoose, { Schema, Model } from 'mongoose';
 
 export type TTask = {
   tid: string;
-  name: string;
+  title: string;
   description?: string;
   startDate: Date | string;
   endDate: Date | string;
+  priority?: string;
 };
+export interface DBTaskModel extends Model<TTask> {}
 
-export interface ITask extends TTask, Document {}
-
-const TaskSchema: Schema = new mongoose.Schema({
+const TaskSchema: Schema = new mongoose.Schema<TTask, DBTaskModel>({
   tid: {
     type: String,
-    maxlength: 50,
     required: true,
     unique: 1
   },
-  name: {
+  title: {
     type: String,
     maxlength: 50,
     required: true
   },
   description: {
     type: String,
-    minlength: 100
+    maxlength: 100
   },
   startDate: {
     type: String,
@@ -35,7 +34,14 @@ const TaskSchema: Schema = new mongoose.Schema({
     type: String,
     maxlength: 30,
     required: true
+  },
+  priority: {
+    type: String,
+    maxlength: 10
   }
+}, {
+  collection: 'Task',
+  versionKey : false
 });
 
-export default mongoose.model<ITask>('Task', TaskSchema);
+export default mongoose.model<TTask, DBTaskModel>('Task', TaskSchema);
