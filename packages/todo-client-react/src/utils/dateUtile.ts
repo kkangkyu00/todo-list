@@ -11,11 +11,11 @@ export const getDatesFromRange = (startDate: Dayjs, endDate: Dayjs): Array<Dayjs
   return dates;
 };
 
-export const getDatesInWeek = (date: Dayjs) => {
-  const startDate = date.startOf('week');
-  const endDate = date.endOf('week');
-  return getDatesFromRange(startDate, endDate);
-};
+// export const getDatesInWeek = (date: Dayjs) => {
+//   const startDate = date.startOf('week');
+//   const endDate = date.endOf('week');
+//   return getDatesFromRange(startDate, endDate);
+// };
 
 export const getWeekOfMonth = (date: Dayjs) => {
   const currentDate = date.date();
@@ -59,7 +59,7 @@ const gatCurrentDates = (date: Dayjs | string) => {
   return dates;
 };
 
-export const getDatesInMonth = (selectedDate: Dayjs | string) => {
+export const getDatesInMonth = (selectedDate: Dayjs) => {
   const prevDates = getPrevDates(selectedDate);
   const nextDates = getNextDates(selectedDate);
   const currentDates = gatCurrentDates(selectedDate);
@@ -71,3 +71,14 @@ export const getDatesInMonth = (selectedDate: Dayjs | string) => {
   }
   return answer;
 };
+
+export const getDatesInWeek = (selectedDate: Dayjs) => {
+  const startDate = selectedDate.startOf('week');
+  const endDate = selectedDate.endOf('week');
+  const dates: Dayjs[] = [];
+
+  for (let d = startDate; d.isBefore(endDate); d = d.add(1, 'day')) {
+    dates.push(d);
+  }
+  return dates;
+}

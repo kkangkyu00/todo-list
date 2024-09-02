@@ -8,6 +8,7 @@ import { HorizontalCalendar } from '@components';
 import dayjs, { Dayjs } from 'dayjs';
 import { TaskCard } from '@components/Card';
 import TopSheet from '@pages/TasksPage/TopSheet';
+import DatePicker from '@components/Calendar/DatePicker';
 
 const WeekTaskItem = styled.div`
   position: absolute;
@@ -26,30 +27,6 @@ const TimeItem = styled.div`
   font-size: 12px;
 `;
 
-const tasks = [
-  {
-    idx: 1,
-    name: '사용자 정보 수정 시 본인인증 비활성',
-    description: '아무말이나 일단 적어',
-    startDate: dayjs('2024-07-11 09:00:00'),
-    endDate: dayjs('2024-07-11 10:00:00')
-  },
-  {
-    idx: 2,
-    name: '웹뷰 플로팅 배너 노출',
-    description: undefined,
-    startDate: dayjs('2024-07-11 12:00:00'),
-    endDate: dayjs('2024-07-11 15:00:00')
-  },
-  {
-    idx: 3,
-    name: '날짜 겹침 테스트',
-    description: undefined,
-    startDate: dayjs('2024-07-11 13:40:00'),
-    endDate: dayjs('2024-07-11 16:30:00')
-  }
-];
-
 const TasksPage = () => {
   const navigate = useNavigate();
 
@@ -60,8 +37,9 @@ const TasksPage = () => {
   };
 
   return (
-    <div style={{ backgroundColor: '#0c0f12' }}>
+    <div>
       <TopSheet />
+      <DatePicker />
     </div>
   );
 };
