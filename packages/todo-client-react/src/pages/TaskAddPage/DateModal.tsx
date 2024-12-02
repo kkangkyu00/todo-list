@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import dayjs, { Dayjs, ManipulateType } from 'dayjs';
 import { Switch, InputLabel } from '@mui/material';
 import { AccessTimeFilled as AccessTimeFilledIcon, Notifications as NotificationsIcon } from '@mui/icons-material';
-import { Modal, Calendar } from '@components';
+import { Modal } from '@components';
 
 import TimeModal from './TimeModal';
 import { ModalWrapper, StyledButtonGroup, ButtonItem, InputWrapper } from './style';
@@ -47,7 +47,6 @@ const DateModal: React.FC<DateModalProps> = ({ open = false, onClose, onSubmit }
     <>
       <Modal open={open} onClose={onClose} onSubmit={handleSubmit}>
         <ModalWrapper>
-          <Calendar date={selectedDate} onChange={handleDateChange} />
           <StyledButtonGroup exclusive onChange={handleDateToggleClike}>
             <ButtonItem value="today">오늘</ButtonItem>
             <ButtonItem value="day">내일</ButtonItem>

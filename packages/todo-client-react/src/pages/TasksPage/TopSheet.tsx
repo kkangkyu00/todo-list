@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { motion, AnimatePresence } from 'framer-motion';
-import Calendar from '@components/Calendar/Calendar';
 import dayjs, { Dayjs } from 'dayjs';
 
 const StyleCalendar = styled.div`
@@ -51,32 +50,32 @@ const HandleBar = styled(motion.div)`
 
 const CARD_MIN_HEIGHT = 131;
 
-const markedDates = [
-  {
-    startDate: dayjs('2024-07-12'),
-    endDate: dayjs('2024-07-15'),
-    color: 'black',
-    markClass: undefined
-  },
-  {
-    startDate: dayjs('2024-07-15'),
-    endDate: dayjs('2024-07-16'),
-    color: 'blue',
-    markClass: undefined
-  },
-  {
-    startDate: dayjs('2024-07-15'),
-    endDate: dayjs('2024-07-18'),
-    color: 'green',
-    markClass: undefined
-  },
-  {
-    startDate: dayjs('2024-07-18 13:40:00'),
-    endDate: dayjs('2024-07-18 16:30:00'),
-    color: 'red',
-    markClass: undefined
-  }
-];
+// const markedDates = [
+//   {
+//     startDate: dayjs('2024-07-12'),
+//     endDate: dayjs('2024-07-15'),
+//     color: 'black',
+//     markClass: undefined
+//   },
+//   {
+//     startDate: dayjs('2024-07-15'),
+//     endDate: dayjs('2024-07-16'),
+//     color: 'blue',
+//     markClass: undefined
+//   },
+//   {
+//     startDate: dayjs('2024-07-15'),
+//     endDate: dayjs('2024-07-18'),
+//     color: 'green',
+//     markClass: undefined
+//   },
+//   {
+//     startDate: dayjs('2024-07-18 13:40:00'),
+//     endDate: dayjs('2024-07-18 16:30:00'),
+//     color: 'red',
+//     markClass: undefined
+//   }
+// ];
 
 const TopSheet = () => {
   const [open, setOpen] = useState(false);
@@ -113,9 +112,7 @@ const TopSheet = () => {
       >
         <AnimatePresence mode="wait">
           <motion.div>
-            <CardBox layout>
-              <Calendar isHorizontal={!open} markedDates={markedDates} />
-            </CardBox>
+            <div />
           </motion.div>
         </AnimatePresence>
       </StyledSheetWrapper>

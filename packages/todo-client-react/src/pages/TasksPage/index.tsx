@@ -4,11 +4,13 @@ import { useNavigate } from 'react-router-dom';
 import { Reorder, AnimatePresence } from 'framer-motion';
 import { Button } from '@mui/material';
 import styled from 'styled-components';
-import { HorizontalCalendar } from '@components';
+import { DatePicker } from '@components';
 import dayjs, { Dayjs } from 'dayjs';
 import { TaskCard } from '@components/Card';
 import TopSheet from '@pages/TasksPage/TopSheet';
-import DatePicker from '@components/Calendar/DatePicker';
+import Form, { TFormOption } from '@components/Form/Form';
+import { EnumFieldType } from '@components/Form/FormComponentByType';
+import * as yup from 'yup';
 
 const WeekTaskItem = styled.div`
   position: absolute;
@@ -36,9 +38,29 @@ const TasksPage = () => {
     return dayjs.duration({ hours, minutes }).asHours();
   };
 
+  const options: TFormOption[] = [
+    { field: EnumFieldType.TextField, label: '이름', name: 'name', required: true },
+    { field: EnumFieldType.TextField, label: '전화번호', name: 'phone' }
+  ];
+
+  const onSubmit = (value: unknown) => {
+    console.log(value, '########### onSubmit');
+  };
+
+  const asd = yup.object().shape({
+    name: yup.string().required('이름은 필수항목이에요')
+  });
+
   return (
     <div>
-      <TopSheet />
+      <Form formOptions={options} values={{}} validationSchema={asd} onSubmit={onSubmit} />
+      {/* eslint-disable-next-line react/button-has-type */}
+      <button form="form" type="submit">
+        submit
+      </button>
+      {/* <TopSheet /> */}
+      <DatePicker dateType="week" />
+      <div>====</div>
       <DatePicker />
     </div>
   );

@@ -9,7 +9,6 @@ import { PushPin as PushPinIcon, Loop as LoopIcon } from '@mui/icons-material';
 import styled from 'styled-components';
 import { TaskCard } from '@components/Card';
 import WeatherContainer from '@containers/WeatherContainer';
-import Calendar from '@components/Calendar/Calendar';
 
 const HomePageWrapper = styled.div`
   height: 100%;
@@ -129,7 +128,6 @@ const HomePage = () => {
   return (
     <HomePageWrapper>
       <SectionWrapper>
-        <Calendar markedDates={markedDates} />
         <SectionContent>
           <div>예정된 일정</div>
           <StyleReorderGroup>
