@@ -1,21 +1,5 @@
 import dayjs, { Dayjs } from 'dayjs';
-
-export const getDatesFromRange = (startDate: Dayjs, endDate: Dayjs): Array<Dayjs> => {
-  const dates: Array<Dayjs> = [];
-  let currDate = startDate;
-
-  while (!currDate.isAfter(endDate)) {
-    dates.push(currDate);
-    currDate = currDate.add(1, 'day');
-  }
-  return dates;
-};
-
-// export const getDatesInWeek = (date: Dayjs) => {
-//   const startDate = date.startOf('week');
-//   const endDate = date.endOf('week');
-//   return getDatesFromRange(startDate, endDate);
-// };
+import { IMarked } from '@components/Calendar/DatePicker';
 
 export const getWeekOfMonth = (date: Dayjs) => {
   const currentDate = date.date();
@@ -75,10 +59,18 @@ export const getDatesInMonth = (selectedDate: Dayjs) => {
 export const getDatesInWeek = (selectedDate: Dayjs) => {
   const startDate = selectedDate.startOf('week');
   const endDate = selectedDate.endOf('week');
-  const dates: Dayjs[] = [];
+  const answer: Dayjs[] = [];
 
   for (let d = startDate; d.isBefore(endDate); d = d.add(1, 'day')) {
-    dates.push(d);
+    answer.push(d);
   }
-  return dates;
-}
+  return answer;
+};
+
+export const sortMarkedDates = (array: IMarked[]) => {
+  return array.sort((prev, curr) => {
+    const { startDate: prevStart, endDate: prevEnd } = prev;
+    const { startDate: currStart, endDate: currEnd } = curr;
+    return dayjs(currEnd).diff(currStart, 'day') - dayjs(prevEnd).diff(prevStart, 'day');
+  });
+};
