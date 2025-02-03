@@ -1,10 +1,12 @@
 import React from 'react';
-import NotificationsOutlinedIcon from '@mui/icons-material/NotificationsOutlined';
+import { useMatch } from 'react-router-dom';
 import styled from 'styled-components';
+import { Box, IconButton } from '@mui/material';
+import { NotificationsOutlined as NotificationsIcon } from '@mui/icons-material';
 
 const HeaderWrapper = styled.div`
-  z-index: 100;
   position: fixed;
+  z-index: 100;
   top: 0;
   display: flex;
   align-items: center;
@@ -13,18 +15,27 @@ const HeaderWrapper = styled.div`
   width: calc(100% - 32px);
   height: 44px;
   padding: 0 16px;
-  color: #ffffff;
-  font-weight: 700;
-  background: #5267fb;
+  ${({ theme }) => theme.typography.font20B};
+  color: ${({ theme }) => theme.color.main};
+  background: ${({ theme }) => theme.color.bgOverlay};
 `;
 
 const HeaderContainer = () => {
+  const isMatchHome = useMatch('/main');
+  console.log(isMatchHome, '###############');
   return (
     <HeaderWrapper>
-      <div>ToDoit</div>
-      <div>
-        <NotificationsOutlinedIcon />
-      </div>
+      <Box>
+        {!isMatchHome ? (
+          <IconButton>
+            <Box />
+          </IconButton>
+        ) : null}
+      </Box>
+      <Box>ToDoit.</Box>
+      <Box>
+        <NotificationsIcon />
+      </Box>
     </HeaderWrapper>
   );
 };

@@ -2,17 +2,18 @@
 /* eslint-disable no-param-reassign */
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Reorder, HTMLMotionProps } from 'framer-motion';
-import dayjs, { Dayjs } from 'dayjs';
-import { Button } from '@mui/material';
-import { PushPin as PushPinIcon, Loop as LoopIcon } from '@mui/icons-material';
+import { Reorder } from 'framer-motion';
+import dayjs from 'dayjs';
+import { Box, Button } from '@mui/material';
+import { Loop as LoopIcon } from '@mui/icons-material';
 import styled from 'styled-components';
 import { TaskCard } from '@components/Card';
-import WeatherContainer from '@containers/WeatherContainer';
+import DatePicker, { TDateType } from '@components/Picker/DatePicker';
+import ToggleButtonGroup from '../../components/Button/ToggleButtonGroup';
 
 const HomePageWrapper = styled.div`
   height: 100%;
-  padding-bottom: 62px;
+  //padding: 16px;
 `;
 
 const StyleReorderGroup = styled.div`
@@ -25,28 +26,12 @@ const StyleReorderGroup = styled.div`
   }
 `;
 
-const SectionWrapper = styled.div`
-  gap: 8px;
-  display: flex;
-  flex-direction: column;
-  background: #ededed;
-
-  & > div:first-child {
-    padding-top: 32px;
-    //padding-top: 54px;
-  }
-`;
-
 const SectionContent = styled.div`
   gap: 8px;
   display: flex;
   flex-direction: column;
   padding: 16px;
   background: #ffffff;
-
-  //&:first-child {
-  //  margin-top: -16px;
-  //}
 
   .btn-more {
     display: flex;
@@ -91,6 +76,7 @@ const intended = [
 const HomePage = () => {
   const navigate = useNavigate();
   const [items, setItems] = useState([1, 2]);
+  const [dateType, setDateType] = useState<TDateType>('month');
 
   const handleMoreClick = () => navigate('/');
 
@@ -100,53 +86,64 @@ const HomePage = () => {
 
   const markedDates = [
     {
-      startDate: dayjs('2024-07-12'),
-      endDate: dayjs('2024-07-15'),
+      startDate: dayjs('2024-12-12'),
+      endDate: dayjs('2024-12-15'),
       color: 'black',
       markClass: undefined
     },
     {
-      startDate: dayjs('2024-07-15'),
-      endDate: dayjs('2024-07-16'),
+      startDate: dayjs('2024-12-15'),
+      endDate: dayjs('2024-12-16'),
       color: 'blue',
       markClass: undefined
     },
     {
-      startDate: dayjs('2024-07-15'),
-      endDate: dayjs('2024-07-18'),
+      startDate: dayjs('2024-12-15'),
+      endDate: dayjs('2024-12-18'),
       color: 'green',
       markClass: undefined
     },
     {
-      startDate: dayjs('2024-07-18 13:40:00'),
-      endDate: dayjs('2024-07-18 16:30:00'),
+      startDate: dayjs('2024-12-18 13:40:00'),
+      endDate: dayjs('2024-12-18 16:30:00'),
       color: 'red',
       markClass: undefined
     }
   ];
+  const toggleButtons = [
+    { label: '월별', value: 'month' },
+    { label: '주별', value: 'week' }
+  ];
+
+  const handleToggleChange = (_: React.MouseEvent<HTMLElement>, value: TDateType) => {
+    console.log('##### toggle:', value);
+    setDateType(value);
+  };
+  const handleDateChange = () => {};
 
   return (
     <HomePageWrapper>
-      <SectionWrapper>
-        <SectionContent>
-          <div>예정된 일정</div>
-          <StyleReorderGroup>
-            <Reorder.Group axis="x" values={items} onReorder={setItems}>
-              {intended?.map((t) => (
-                <TaskCard idx={t.idx} name={t.name} desc={t.description} startDate={t.startDate} endDate={t.endDate} />
-              ))}
-            </Reorder.Group>
-          </StyleReorderGroup>
-          <div className="btn-more">
-            <Button className="task-more-btn" onClick={handleMoreClick}>
-              일정 더보기
-            </Button>
-            <Button className="task-refresh-btn" onClick={handleRefreshClick}>
-              <LoopIcon />
-            </Button>
-          </div>
-        </SectionContent>
-      </SectionWrapper>
+      <ToggleButtonGroup exclusive buttons={toggleButtons} value={dateType} onChange={handleToggleChange} />
+      <DatePicker dateType={dateType} markedDates={markedDates} onChange={handleDateChange} />
+
+      <SectionContent>
+        <div>예정된 일정</div>
+        <StyleReorderGroup>
+          <Reorder.Group axis="x" values={items} onReorder={setItems}>
+            {intended?.map((t) => (
+              <TaskCard idx={t.idx} name={t.name} desc={t.description} startDate={t.startDate} endDate={t.endDate} />
+            ))}
+          </Reorder.Group>
+        </StyleReorderGroup>
+        <div className="btn-more">
+          <Button className="task-more-btn" onClick={handleMoreClick}>
+            일정 더보기
+          </Button>
+          <Button className="task-refresh-btn" onClick={handleRefreshClick}>
+            <LoopIcon />
+          </Button>
+        </div>
+      </SectionContent>
     </HomePageWrapper>
   );
 };

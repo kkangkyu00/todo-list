@@ -1,5 +1,5 @@
 import dayjs, { Dayjs } from 'dayjs';
-import { IMarked } from '@components/Calendar/DatePicker';
+import { IMarked } from '@components/Picker/DatePicker';
 
 export const getWeekOfMonth = (date: Dayjs) => {
   const currentDate = date.date();

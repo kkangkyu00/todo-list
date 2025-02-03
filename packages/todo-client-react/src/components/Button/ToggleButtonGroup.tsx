@@ -1,5 +1,10 @@
 import React from 'react';
-import { ToggleButtonGroup as MuiToggleButtonGroup, ToggleButton, ToggleButtonProps } from '@mui/material';
+import {
+  ToggleButtonGroup as MuiToggleButtonGroup,
+  ToggleButton as MuiToggleButton,
+  ToggleButtonGroupProps as MuiToggleButtonGroupProps,
+  ToggleButtonProps as MuiToggleButtonProps
+} from '@mui/material';
 import styled from 'styled-components';
 
 const StyledToggleButtonGroup = styled(MuiToggleButtonGroup)`
@@ -7,20 +12,25 @@ const StyledToggleButtonGroup = styled(MuiToggleButtonGroup)`
   & button {
     width: 100%;
   }
+  &.MuiToggleButtonGroup-root {
+    width: 100%;
+    padding: 8px 0;
+  }
 `;
 
-interface IButton extends ToggleButtonProps {
+interface IToggleButton extends MuiToggleButtonProps {
   label?: string;
 }
 
-interface ToggleButtonGroupProps {
-  buttons?: IButton[];
+interface ToggleButtonGroupProps extends MuiToggleButtonGroupProps {
+  buttons?: IToggleButton[];
 }
 
-const ToggleButtonGroup = ({ buttons, ...props }: ToggleButtonGroupProps) => {
+const ToggleButtonGroup = ({ children, buttons, ...props }: ToggleButtonGroupProps) => {
   return (
     <StyledToggleButtonGroup {...props}>
-      {buttons?.map(({ label, ...buttonItem }) => <ToggleButton {...buttonItem}>{label}</ToggleButton>)}
+      {buttons?.map(({ label, ...buttonProps }) => <MuiToggleButton {...buttonProps}>{label}</MuiToggleButton>)}
+      {children}
     </StyledToggleButtonGroup>
   );
 };

@@ -8,6 +8,8 @@
       "@components/*": ["./components/*"],
       "@containers": ["./containers"],
       "@containers/*": ["./containers/*"],
+      "@contexts": ["./contexts"],
+      "@contexts/*": ["./contexts/*"],
       "@hooks": ["./hooks"],
       "@hooks/*": ["./hooks/*"],
       "@pages": ["./pages"],

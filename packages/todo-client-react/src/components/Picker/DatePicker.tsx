@@ -6,7 +6,6 @@ import { Box } from '@mui/material';
 import { KeyboardArrowLeft, KeyboardArrowRight } from '@mui/icons-material';
 import { getDatesInWeek, getDatesInMonth, sortMarkedDates, classNames } from '@utils';
 
-/* eslint-disable @typescript-eslint/no-unused-vars */
 const DatePickerContainer = styled.div``;
 const DatePickerHeader = styled.div``;
 const WeekItem = styled.div`
@@ -15,6 +14,7 @@ const WeekItem = styled.div`
   justify-content: space-around;
 `;
 const DateItem = styled.div`
+  width: 40px;
   text-align: center;
 
   &.today span {
@@ -30,8 +30,15 @@ const DateItem = styled.div`
     color: #fff;
   }
 `;
-const DaysItem = styled.div``;
-const Marker = styled.div<{ shape: 'plot' | 'dot' }>``;
+const DaysItem = styled.div`
+  width: 40px;
+  text-align: center;
+`;
+const Marker = styled.div<{ shape: 'plot' | 'dot' }>`
+  width: 100%;
+  height: 2px;
+  background: blue;
+`;
 
 export interface IMarked {
   startDate: Dayjs | string;
@@ -46,7 +53,7 @@ export interface IMarkedForm {
   color?: string;
 }
 
-type TDateType = 'month' | 'week';
+export type TDateType = 'month' | 'week';
 
 interface DatePickerProps {
   date?: Dayjs | string;
@@ -57,9 +64,9 @@ interface DatePickerProps {
 
 const EMPTY_MARKED = { color: 'transparent' };
 
-const DatePicker = ({ date, dateType = 'month', onChange, markedDates }: DatePickerProps) => {
+const DatePicker = ({ date, dateType = 'month', markedDates, onChange }: DatePickerProps) => {
   const [swiperRef, setSwiperRef] = useState<SwiperRef['swiper'] | null>(null);
-  const [selectedDate, setSelectedDate] = useState<Dayjs>(dayjs());
+  const [selectedDate, setSelectedDate] = useState<Dayjs>(dayjs(date));
   const [calendarDate, setCalendarDate] = useState<Dayjs[]>([
     dayjs().add(-1, dateType),
     dayjs(),
@@ -107,6 +114,7 @@ const DatePicker = ({ date, dateType = 'month', onChange, markedDates }: DatePic
   }, [markedDates]);
 
   const handleDateClick = (d: Dayjs) => {
+    onChange?.(d);
     setSelectedDate(d);
   };
 
@@ -138,7 +146,6 @@ const DatePicker = ({ date, dateType = 'month', onChange, markedDates }: DatePic
   };
 
   const activeIndex = swiperRef?.realIndex || 0;
-  console.log(selectedDate, '################## selectedDate');
   return (
     <DatePickerContainer>
       <DatePickerHeader>
@@ -149,7 +156,7 @@ const DatePicker = ({ date, dateType = 'month', onChange, markedDates }: DatePic
           </Box>
           <KeyboardArrowRight onClick={() => swiperRef?.slideNext()} />
         </Box>
-        <Box display="flex" alignItems="center">
+        <Box display="flex" alignItems="center" justifyContent="space-around">
           {generateDayOfWeek()}
         </Box>
       </DatePickerHeader>

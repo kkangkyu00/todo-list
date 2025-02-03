@@ -49,7 +49,7 @@ export const typography = {
   font20B: css`
     font-size: 20px;
     line-height: 22px;
-    font-weight: 500;
+    font-weight: bold;
   `,
   font18R: css`
     font-size: 18px;
@@ -59,7 +59,7 @@ export const typography = {
   font18B: css`
     font-size: 18px;
     line-height: 20px;
-    font-weight: 500;
+    font-weight: bold;
   `,
   font16R: css`
     font-size: 16px;
@@ -69,7 +69,7 @@ export const typography = {
   font16B: css`
     font-size: 16px;
     line-height: 18px;
-    font-weight: 500;
+    font-weight: bold;
   `,
   font14R: css`
     font-size: 14px;

@@ -1,13 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Reorder, AnimatePresence } from 'framer-motion';
-import { Button } from '@mui/material';
 import styled from 'styled-components';
 import { DatePicker } from '@components';
 import dayjs, { Dayjs } from 'dayjs';
-import { TaskCard } from '@components/Card';
-import TopSheet from '@pages/TasksPage/TopSheet';
 import Form, { TFormOption } from '@components/Form/Form';
 import { EnumFieldType } from '@components/Form/FormComponentByType';
 import * as yup from 'yup';
