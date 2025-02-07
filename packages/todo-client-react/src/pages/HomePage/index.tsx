@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Reorder } from 'framer-motion';
-import dayjs from 'dayjs';
+import dayjs, { Dayjs } from 'dayjs';
 import { Box, Button } from '@mui/material';
 import { Loop as LoopIcon } from '@mui/icons-material';
 import styled from 'styled-components';
@@ -73,16 +73,17 @@ const intended = [
   }
 ];
 
+const TOGGLE_BUTTONS = [
+  { label: '월별', value: 'month' },
+  { label: '주별', value: 'week' }
+];
+
 const HomePage = () => {
   const navigate = useNavigate();
   const [items, setItems] = useState([1, 2]);
   const [dateType, setDateType] = useState<TDateType>('month');
 
   const handleMoreClick = () => navigate('/');
-
-  const handleRefreshClick = () => {
-    //
-  };
 
   const markedDates = [
     {
@@ -110,21 +111,23 @@ const HomePage = () => {
       markClass: undefined
     }
   ];
-  const toggleButtons = [
-    { label: '월별', value: 'month' },
-    { label: '주별', value: 'week' }
-  ];
 
   const handleToggleChange = (_: React.MouseEvent<HTMLElement>, value: TDateType) => {
     console.log('##### toggle:', value);
     setDateType(value);
   };
-  const handleDateChange = () => {};
+  const handleDateChange = (date: Dayjs) => {
+    console.log('##### date:', date.format('YYYY-MM-DD'));
+  };
 
   return (
     <HomePageWrapper>
-      <ToggleButtonGroup exclusive buttons={toggleButtons} value={dateType} onChange={handleToggleChange} />
+      <ToggleButtonGroup exclusive buttons={TOGGLE_BUTTONS} value={dateType} onChange={handleToggleChange} />
       <DatePicker dateType={dateType} markedDates={markedDates} onChange={handleDateChange} />
+
+      <SectionContent>
+        <div>진행중</div>
+      </SectionContent>
 
       <SectionContent>
         <div>예정된 일정</div>
@@ -137,10 +140,7 @@ const HomePage = () => {
         </StyleReorderGroup>
         <div className="btn-more">
           <Button className="task-more-btn" onClick={handleMoreClick}>
-            일정 더보기
-          </Button>
-          <Button className="task-refresh-btn" onClick={handleRefreshClick}>
-            <LoopIcon />
+            더보기
           </Button>
         </div>
       </SectionContent>

@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import dayjs, { Dayjs } from 'dayjs';
 import styled from 'styled-components';
 import { Swiper, SwiperSlide, SwiperRef } from 'swiper/react';
@@ -40,20 +40,18 @@ const Marker = styled.div<{ shape: 'plot' | 'dot' }>`
   background: blue;
 `;
 
+export type TDateType = 'month' | 'week';
 export interface IMarked {
   startDate: Dayjs | string;
   endDate: Dayjs | string;
   color?: string;
   markClass?: string;
 }
-
 export interface IMarkedForm {
   isStartDate?: boolean;
   isEndDate?: boolean;
   color?: string;
 }
-
-export type TDateType = 'month' | 'week';
 
 interface DatePickerProps {
   date?: Dayjs | string;

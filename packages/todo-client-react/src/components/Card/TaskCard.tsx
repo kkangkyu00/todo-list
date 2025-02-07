@@ -120,7 +120,7 @@ const TaskCard = ({ idx, name, desc, startDate, endDate }: TaskCardProps) => {
       <SwipeContainer
         ref={animateRef}
         drag="x"
-        dragElastic={0.1}
+        dragElastic={{ left: 0.1, right: 0 }}
         dragConstraints={{ left: -80, right: 0 }}
         onDragEnd={() => {
           const isOverThreshold = motionX.get() < -80 / 2;
@@ -133,9 +133,11 @@ const TaskCard = ({ idx, name, desc, startDate, endDate }: TaskCardProps) => {
           <Meta>
             {name && <div className="card-meta-title">{name}</div>}
             {desc && <div className="card-meta-desc">{desc}</div>}
-            <div className="card-meta-date">
-              {startDate && endDate && `${dayjs(startDate)?.format('MM DD')} ~ ${dayjs(endDate)?.format('MM DD')}`}
-            </div>
+            {startDate && endDate && (
+              <div className="card-meta-date">
+                {startDate && endDate && `${dayjs(startDate)?.format('MM DD')} ~ ${dayjs(endDate)?.format('MM DD')}`}
+              </div>
+            )}
           </Meta>
         </SwipeContent>
       </SwipeContainer>
