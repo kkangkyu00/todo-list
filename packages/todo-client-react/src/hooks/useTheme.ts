@@ -1,7 +1,7 @@
 import { useState, useCallback, useLayoutEffect } from 'react';
 
 export const useTheme = () => {
-  const [theme, setTheme] = useState('light');
+  const [theme, setTheme] = useState('dark');
 
   const onChangeTheme = useCallback(() => {
     const curTheme = theme === 'light' ? 'dark' : 'light';

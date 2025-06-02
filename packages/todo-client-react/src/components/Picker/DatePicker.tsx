@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import dayjs, { Dayjs } from 'dayjs';
 import styled from 'styled-components';
 import { Swiper, SwiperSlide, SwiperRef } from 'swiper/react';
@@ -60,6 +60,14 @@ interface DatePickerProps {
   markedDates?: IMarked[];
 }
 
+const generateDayOfWeek = (): React.ReactElement[] => {
+  return ['일', '월', '화', '수', '목', '금', '토'].map((value: string) => <DaysItem key={value}>{value}</DaysItem>);
+};
+
+const renderMarked = (items: IMarkedForm[]) => {
+  return items?.map(() => <Marker shape="dot" />);
+};
+
 const EMPTY_MARKED = { color: 'transparent' };
 
 const DatePicker = ({ date, dateType = 'month', markedDates, onChange }: DatePickerProps) => {
@@ -81,6 +89,11 @@ const DatePicker = ({ date, dateType = 'month', markedDates, onChange }: DatePic
     const dates = calendarDate;
     dates[(slide.realIndex + 1) % 3] = dates[slide.realIndex].add(1, dateType);
     setCalendarDate(() => [...dates]);
+  };
+
+  const handleDateClick = (d: Dayjs) => {
+    onChange?.(d);
+    setSelectedDate(d);
   };
 
   const marked = useMemo(() => {
@@ -111,21 +124,8 @@ const DatePicker = ({ date, dateType = 'month', markedDates, onChange }: DatePic
     }, init);
   }, [markedDates]);
 
-  const handleDateClick = (d: Dayjs) => {
-    onChange?.(d);
-    setSelectedDate(d);
-  };
-
-  const generateDayOfWeek = (): React.ReactElement[] => {
-    return ['일', '월', '화', '수', '목', '금', '토'].map((value: string) => <DaysItem key={value}>{value}</DaysItem>);
-  };
-
-  const renderMarked = (items: IMarkedForm[]) => {
-    return items?.map(() => <Marker shape="dot" />);
-  };
-
-  const renderDates = (value: Dayjs): React.ReactElement[] => {
-    const weeks = dateType === 'month' ? getDatesInMonth(value) : [getDatesInWeek(value)];
+  const renderDates = (dates: Dayjs): React.ReactElement[] => {
+    const weeks = dateType === 'month' ? getDatesInMonth(dates) : [getDatesInWeek(dates)];
     return weeks.map((week) => (
       <WeekItem>
         {week.map((d) => {
@@ -166,8 +166,8 @@ const DatePicker = ({ date, dateType = 'month', markedDates, onChange }: DatePic
         onSlidePrevTransitionEnd={handlePrevSlide}
         onSlideNextTransitionEnd={handleNextSlide}
       >
-        {calendarDate.map((d) => (
-          <SwiperSlide>{renderDates(d)}</SwiperSlide>
+        {calendarDate.map((dates) => (
+          <SwiperSlide>{renderDates(dates)}</SwiperSlide>
         ))}
       </Swiper>
     </DatePickerContainer>

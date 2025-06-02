@@ -17,12 +17,12 @@ const HeaderWrapper = styled.div`
   padding: 0 16px;
   ${({ theme }) => theme.typography.font20B};
   color: ${({ theme }) => theme.color.main};
-  background: ${({ theme }) => theme.color.bgOverlay};
+  background: ${({ theme }) => theme.color.background};
 `;
 
 const HeaderContainer = () => {
   const isMatchHome = useMatch('/main');
-  console.log(isMatchHome, '###############');
+  // console.log(isMatchHome, '###############');
   return (
     <HeaderWrapper>
       <Box>

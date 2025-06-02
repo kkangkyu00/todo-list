@@ -14,7 +14,7 @@ export const palette = {
 };
 
 export const lightColor = {
-  bgOverlay: '#ffffff',
+  background: '#ffffff',
   bgSeparator: '#f2f3f5',
   // Default Font Color
   main: '#202124',
@@ -27,7 +27,7 @@ export const lightColor = {
   disabled: '#888888'
 };
 export const darkColor = {
-  bgOverlay: '#202124',
+  background: '#161616',
   bgSeparator: '#2C2C2E',
   // Default Font Color
   main: '#ebecf0',

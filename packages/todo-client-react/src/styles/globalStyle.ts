@@ -3,6 +3,7 @@ import { createGlobalStyle } from 'styled-components';
 const GlobalStyle = createGlobalStyle`
   body {
     margin: 0;
+    background: ${({ theme }) => theme.color.background};
     // Font Style
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
     color: ${({ theme }) => theme.color.main};

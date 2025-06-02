@@ -1,0 +1,635 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="3791869a-5ea9-4570-bbf8-6b9b8ca6c8df" name="Changes" comment="# components" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings">
+    <execution />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="PHP 7.4" />
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 3
+}</component>
+  <component name="ProjectId" id="2gAZwIj6o576dJqFQ8IhOjpRA8F" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;javascript.nodejs.core.library.configured.version&quot;: &quot;18.20.2&quot;,
+    &quot;javascript.nodejs.core.library.typings.version&quot;: &quot;18.19.47&quot;,
+    &quot;jsx.switch.disabled&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/vendys-kyuseok/todo-list&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.standard&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.stylelint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.standard&quot;: &quot;&quot;,
+    &quot;node.js.selected.package.stylelint&quot;: &quot;&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_interpreter_path&quot;: &quot;node&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;yarn&quot;,
+    &quot;npm.asd.executor&quot;: &quot;Run&quot;,
+    &quot;npm.start.executor&quot;: &quot;Run&quot;,
+    &quot;npm.start:client.executor&quot;: &quot;Run&quot;,
+    &quot;npm.start:dev.executor&quot;: &quot;Run&quot;,
+    &quot;npm.start:server.executor&quot;: &quot;Run&quot;,
+    &quot;npm.todo-server-node &gt; build.executor&quot;: &quot;Run&quot;,
+    &quot;npm.todo-server-node &gt; build2.executor&quot;: &quot;Run&quot;,
+    &quot;npm.todo-server-node &gt; dev.executor&quot;: &quot;Run&quot;,
+    &quot;npm.todo-server-node &gt; start.executor&quot;: &quot;Run&quot;,
+    &quot;npm.todo-server-node &gt; start2.executor&quot;: &quot;Run&quot;,
+    &quot;npm.todo-server-node &gt; start:dev.executor&quot;: &quot;Run&quot;,
+    &quot;npm.todo-server-node &gt; start:dev2.executor&quot;: &quot;Run&quot;,
+    &quot;npm.todo-server-node &gt; watch.executor&quot;: &quot;Run&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;Errors&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/Users/vendys-kyuseok/todo-list/node_modules/typescript/lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/packages/todo-server-node" />
+      <recent name="$PROJECT_DIR$" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/packages/todo-client-react/src" />
+      <recent name="$PROJECT_DIR$/packages/todo-client-react/src/pages/HomePage" />
+      <recent name="$PROJECT_DIR$/packages/todo-server-node/src/routes" />
+      <recent name="$PROJECT_DIR$/packages/todo-server-node/src" />
+      <recent name="$PROJECT_DIR$" />
+    </key>
+  </component>
+  <component name="RunManager" selected="npm.start:client">
+    <configuration name="start:client" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="start:client" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <configuration name="start:dev" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="start:dev" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <configuration name="start:server" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="start:server" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <configuration name="todo-server-node &gt; start:dev" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/packages/todo-server-node/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="start:dev" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <configuration name="todo-server-node &gt; start:dev2" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/packages/todo-server-node/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="start:dev2" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="npm.start:client" />
+        <item itemvalue="npm.start:dev" />
+        <item itemvalue="npm.start:server" />
+        <item itemvalue="npm.todo-server-node &gt; start:dev2" />
+        <item itemvalue="npm.todo-server-node &gt; start:dev" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-1d06a55b98c1-91d5c284f522-JavaScript-WS-241.15989.105" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="3791869a-5ea9-4570-bbf8-6b9b8ca6c8df" name="Changes" comment="" />
+      <created>1715142579971</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1715142579971</updated>
+      <workItem from="1715142581415" duration="10094000" />
+      <workItem from="1715154770920" duration="2423000" />
+      <workItem from="1715210621240" duration="40997000" />
+      <workItem from="1715639185241" duration="4462000" />
+      <workItem from="1715922370285" duration="2902000" />
+      <workItem from="1716159366870" duration="34858000" />
+      <workItem from="1716425142572" duration="24802000" />
+      <workItem from="1716717763841" duration="8918000" />
+      <workItem from="1716765148591" duration="8432000" />
+      <workItem from="1716936315451" duration="596000" />
+      <workItem from="1716958414010" duration="4524000" />
+      <workItem from="1717027524503" duration="599000" />
+      <workItem from="1717109355350" duration="9836000" />
+      <workItem from="1717325769414" duration="10000" />
+      <workItem from="1717325800458" duration="48826000" />
+      <workItem from="1717855888162" duration="9278000" />
+      <workItem from="1717992073094" duration="17135000" />
+      <workItem from="1718581929677" duration="561000" />
+      <workItem from="1718697128654" duration="1282000" />
+      <workItem from="1718771099123" duration="37000" />
+      <workItem from="1718771153071" duration="15134000" />
+      <workItem from="1718845306553" duration="33000" />
+      <workItem from="1718845466180" duration="27974000" />
+      <workItem from="1719185738934" duration="8338000" />
+      <workItem from="1719273385494" duration="31208000" />
+      <workItem from="1719791903822" duration="18130000" />
+      <workItem from="1719963163594" duration="9607000" />
+      <workItem from="1720403336524" duration="15403000" />
+      <workItem from="1720482773424" duration="42505000" />
+      <workItem from="1721001386110" duration="38851000" />
+      <workItem from="1721290800813" duration="3737000" />
+      <workItem from="1721350523182" duration="226000" />
+      <workItem from="1721492677705" duration="3002000" />
+      <workItem from="1721621561403" duration="3000" />
+      <workItem from="1721951737813" duration="6102000" />
+      <workItem from="1722211016461" duration="14678000" />
+      <workItem from="1722243526910" duration="17808000" />
+      <workItem from="1722325817316" duration="12300000" />
+      <workItem from="1722399024388" duration="629000" />
+      <workItem from="1722399777337" duration="17849000" />
+      <workItem from="1722484670966" duration="13137000" />
+      <workItem from="1722556370680" duration="427000" />
+      <workItem from="1722557090484" duration="13033000" />
+      <workItem from="1722814604259" duration="17148000" />
+      <workItem from="1722903207631" duration="89000" />
+      <workItem from="1722903638855" duration="14876000" />
+      <workItem from="1723012972197" duration="199000" />
+      <workItem from="1723013199771" duration="16783000" />
+      <workItem from="1723101965818" duration="14067000" />
+      <workItem from="1723418931733" duration="1004000" />
+      <workItem from="1723421050214" duration="163000" />
+      <workItem from="1723425303139" duration="4701000" />
+      <workItem from="1723437637567" duration="15572000" />
+      <workItem from="1723526483732" duration="2095000" />
+      <workItem from="1723538421392" duration="8349000" />
+      <workItem from="1723601568479" duration="748000" />
+      <workItem from="1723602474420" duration="5515000" />
+      <workItem from="1724025183165" duration="15607000" />
+      <workItem from="1724219789170" duration="98000" />
+      <workItem from="1724219926495" duration="11017000" />
+      <workItem from="1724285978904" duration="32592000" />
+      <workItem from="1724628561310" duration="41268000" />
+      <workItem from="1724977340398" duration="54792000" />
+      <workItem from="1726193193794" duration="5237000" />
+      <workItem from="1726660213709" duration="609000" />
+      <workItem from="1726703840936" duration="3754000" />
+      <workItem from="1726995358958" duration="599000" />
+      <workItem from="1727049878533" duration="2375000" />
+      <workItem from="1727180144343" duration="379000" />
+      <workItem from="1727190011185" duration="4501000" />
+      <workItem from="1727309021759" duration="5300000" />
+      <workItem from="1728373392676" duration="8107000" />
+      <workItem from="1728864230620" duration="7458000" />
+      <workItem from="1729132097755" duration="570000" />
+      <workItem from="1732153875060" duration="740000" />
+      <workItem from="1732232975364" duration="556000" />
+      <workItem from="1732257602980" duration="25000" />
+      <workItem from="1732257649951" duration="57000" />
+      <workItem from="1732257863329" duration="2219000" />
+      <workItem from="1732490891507" duration="46430000" />
+      <workItem from="1733097159777" duration="1828000" />
+      <workItem from="1733100795946" duration="56770000" />
+      <workItem from="1735067082272" duration="436000" />
+      <workItem from="1735541154172" duration="6413000" />
+      <workItem from="1735775242763" duration="13935000" />
+      <workItem from="1736120874977" duration="28690000" />
+      <workItem from="1739144947503" duration="1963000" />
+    </task>
+    <task id="LOCAL-00001" summary="# client 분리">
+      <option name="closed" value="true" />
+      <created>1715144426468</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1715144426468</updated>
+    </task>
+    <task id="LOCAL-00002" summary="# client yarn workspace 연결">
+      <option name="closed" value="true" />
+      <created>1715146095987</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1715146095987</updated>
+    </task>
+    <task id="LOCAL-00003" summary="# client eslint 분리">
+      <option name="closed" value="true" />
+      <created>1715214850330</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1715214850330</updated>
+    </task>
+    <task id="LOCAL-00004" summary="# client server 연결">
+      <option name="closed" value="true" />
+      <created>1715315643228</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1715315643228</updated>
+    </task>
+    <task id="LOCAL-00005" summary="# server express 연결">
+      <option name="closed" value="true" />
+      <created>1715927031344</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1715927031344</updated>
+    </task>
+    <task id="LOCAL-00006" summary="# server mongoDB 연결">
+      <option name="closed" value="true" />
+      <created>1716358416037</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1716358416037</updated>
+    </task>
+    <task id="LOCAL-00007" summary="# HorizontalCalendar 작업">
+      <option name="closed" value="true" />
+      <created>1716958503479</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1716958503479</updated>
+    </task>
+    <task id="LOCAL-00008" summary="# HorizontalCalendar 작업">
+      <option name="closed" value="true" />
+      <created>1717856016533</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1717856016533</updated>
+    </task>
+    <task id="LOCAL-00009" summary="# weather api 연결">
+      <option name="closed" value="true" />
+      <created>1718783381358</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1718783381358</updated>
+    </task>
+    <task id="LOCAL-00010" summary="# TabContainer 수정">
+      <option name="closed" value="true" />
+      <created>1718935316320</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1718935316320</updated>
+    </task>
+    <task id="LOCAL-00011" summary="# TabContainer 수정">
+      <option name="closed" value="true" />
+      <created>1718936859729</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1718936859729</updated>
+    </task>
+    <task id="LOCAL-00012" summary="# Home 기본적인 ui 작업">
+      <option name="closed" value="true" />
+      <created>1719188735951</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1719188735951</updated>
+    </task>
+    <task id="LOCAL-00013" summary="# usePullToRefresh 테스트">
+      <option name="closed" value="true" />
+      <created>1719541374247</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1719541374247</updated>
+    </task>
+    <task id="LOCAL-00014" summary="# HomePage 스타일 작업">
+      <option name="closed" value="true" />
+      <created>1719797443237</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1719797443238</updated>
+    </task>
+    <task id="LOCAL-00015" summary="# HomePage 스타일 작업">
+      <option name="closed" value="true" />
+      <created>1719963426994</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1719963426994</updated>
+    </task>
+    <task id="LOCAL-00016" summary="# TaskCard 분리">
+      <option name="closed" value="true" />
+      <created>1720418561056</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1720418561056</updated>
+    </task>
+    <task id="LOCAL-00017" summary="# Swipe to delete">
+      <option name="closed" value="true" />
+      <created>1720429494170</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1720429494170</updated>
+    </task>
+    <task id="LOCAL-00018" summary="# Swipe to delete">
+      <option name="closed" value="true" />
+      <created>1720503375543</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1720503375543</updated>
+    </task>
+    <task id="LOCAL-00019" summary="# TasksPage 틀잡기">
+      <option name="closed" value="true" />
+      <created>1720663917103</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1720663917103</updated>
+    </task>
+    <task id="LOCAL-00020" summary="# TasksPage timeline">
+      <option name="closed" value="true" />
+      <created>1720747588318</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1720747588318</updated>
+    </task>
+    <task id="LOCAL-00021" summary="# TasksPage task api 설정">
+      <option name="closed" value="true" />
+      <created>1720764763353</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1720764763353</updated>
+    </task>
+    <task id="LOCAL-00022" summary="# Calendar">
+      <option name="closed" value="true" />
+      <created>1721292482674</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1721292482674</updated>
+    </task>
+    <task id="LOCAL-00023" summary="# Calendar">
+      <option name="closed" value="true" />
+      <created>1722219853892</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1722219853893</updated>
+    </task>
+    <task id="LOCAL-00024" summary="# Task 스키마 설계">
+      <option name="closed" value="true" />
+      <created>1722235758483</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1722235758483</updated>
+    </task>
+    <task id="LOCAL-00025" summary="# Calendar 리팩터링">
+      <option name="closed" value="true" />
+      <created>1722324477773</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1722324477773</updated>
+    </task>
+    <task id="LOCAL-00026" summary="# Calendar 리팩터링">
+      <option name="closed" value="true" />
+      <created>1722324737720</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1722324737720</updated>
+    </task>
+    <task id="LOCAL-00027" summary="# Calendar 리팩터링">
+      <option name="closed" value="true" />
+      <created>1723011184441</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1723011184441</updated>
+    </task>
+    <task id="LOCAL-00028" summary="# TaskAddPage">
+      <option name="closed" value="true" />
+      <created>1723514484335</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1723514484335</updated>
+    </task>
+    <task id="LOCAL-00029" summary="# TaskAddPage">
+      <option name="closed" value="true" />
+      <created>1724218874441</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1724218874441</updated>
+    </task>
+    <task id="LOCAL-00030" summary="# TaskAddPage">
+      <option name="closed" value="true" />
+      <created>1724820376431</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1724820376431</updated>
+    </task>
+    <task id="LOCAL-00031" summary="# TaskAddPage">
+      <option name="closed" value="true" />
+      <created>1724835646802</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1724835646802</updated>
+    </task>
+    <task id="LOCAL-00032" summary="# Task db 생성 빛 api 연결">
+      <option name="closed" value="true" />
+      <created>1724921697049</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1724921697049</updated>
+    </task>
+    <task id="LOCAL-00033" summary="# Task db 생성 빛 api 연결">
+      <option name="closed" value="true" />
+      <created>1725251295164</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1725251295164</updated>
+    </task>
+    <task id="LOCAL-00034" summary="# theme 공통 스타일 정리">
+      <option name="closed" value="true" />
+      <created>1733116838325</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1733116838326</updated>
+    </task>
+    <task id="LOCAL-00035" summary="# yup 추가">
+      <option name="closed" value="true" />
+      <created>1733116871522</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1733116871522</updated>
+    </task>
+    <task id="LOCAL-00036" summary="# yup 추가">
+      <option name="closed" value="true" />
+      <created>1733116891549</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1733116891549</updated>
+    </task>
+    <task id="LOCAL-00037" summary="# 공통 스타일 수정">
+      <option name="closed" value="true" />
+      <created>1733116953594</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1733116953594</updated>
+    </task>
+    <task id="LOCAL-00038" summary="# 공통 스타일 수정">
+      <option name="closed" value="true" />
+      <created>1733121019865</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1733121019865</updated>
+    </task>
+    <task id="LOCAL-00039" summary="# components 정리">
+      <option name="closed" value="true" />
+      <created>1733183649648</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1733183649648</updated>
+    </task>
+    <task id="LOCAL-00040" summary="# components 정리">
+      <option name="closed" value="true" />
+      <created>1733183744940</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1733183744940</updated>
+    </task>
+    <task id="LOCAL-00041" summary="# components 정리">
+      <option name="closed" value="true" />
+      <created>1733183893379</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1733183893379</updated>
+    </task>
+    <task id="LOCAL-00042" summary="# components">
+      <option name="closed" value="true" />
+      <created>1738570243396</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1738570243396</updated>
+    </task>
+    <task id="LOCAL-00043" summary="# components">
+      <option name="closed" value="true" />
+      <created>1738915403281</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1738915403281</updated>
+    </task>
+    <option name="localTasksCounter" value="44" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="# client eslint 분리" />
+    <MESSAGE value="# client server 연결" />
+    <MESSAGE value="# server express 연결" />
+    <MESSAGE value="# server mongoDB 연결" />
+    <MESSAGE value="# HorizontalCalendar 작업" />
+    <MESSAGE value="# weather api 연결" />
+    <MESSAGE value="# TabContainer 수정" />
+    <MESSAGE value="# Home 기본적인 ui 작업" />
+    <MESSAGE value="# usePullToRefresh 테스트" />
+    <MESSAGE value="# HomePage 스타일 작업" />
+    <MESSAGE value="# TaskCard 분리" />
+    <MESSAGE value="# Swipe to delete" />
+    <MESSAGE value="# TasksPage 틀잡기" />
+    <MESSAGE value="# TasksPage timeline" />
+    <MESSAGE value="# TasksPage task api 설정" />
+    <MESSAGE value="# Calendar" />
+    <MESSAGE value="# Task 스키마 설계" />
+    <MESSAGE value="# Calendar 리팩터링" />
+    <MESSAGE value="# TaskAddPage" />
+    <MESSAGE value="# Task db 생성 빛 api 연결" />
+    <MESSAGE value="# theme 공통 스타일 정리" />
+    <MESSAGE value="# yup 추가" />
+    <MESSAGE value="# 공통 스타일 수정" />
+    <MESSAGE value="# components 정리" />
+    <MESSAGE value="# components" />
+    <option name="LAST_COMMIT_MESSAGE" value="# components" />
+  </component>
+</project>

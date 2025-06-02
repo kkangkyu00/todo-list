@@ -13,7 +13,7 @@ import ToggleButtonGroup from '../../components/Button/ToggleButtonGroup';
 
 const HomePageWrapper = styled.div`
   height: 100%;
-  //padding: 16px;
+  background: ${({ theme }) => theme.color.background};
 `;
 
 const StyleReorderGroup = styled.div`
@@ -31,7 +31,6 @@ const SectionContent = styled.div`
   display: flex;
   flex-direction: column;
   padding: 16px;
-  background: #ffffff;
 
   .btn-more {
     display: flex;
