@@ -4,16 +4,57 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Reorder } from 'framer-motion';
 import dayjs, { Dayjs } from 'dayjs';
-import { Box, Button } from '@mui/material';
+import { Box, Button, CircularProgress, Typography } from '@mui/material';
 import { Loop as LoopIcon } from '@mui/icons-material';
 import styled from 'styled-components';
 import { TaskCard } from '@components/Card';
 import DatePicker, { TDateType } from '@components/Picker/DatePicker';
+import { FlexBox, FullWidthFlexBox } from '@styles';
+import { DarkModeButton } from '@components';
+import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward';
+import TuneIcon from '@mui/icons-material/Tune';
+
 import ToggleButtonGroup from '../../components/Button/ToggleButtonGroup';
 
 const HomePageWrapper = styled.div`
   height: 100%;
-  background: ${({ theme }) => theme.color.background};
+  padding: 16px;
+`;
+const TaskWrapper = styled.div<{ $height?: string; $bgColor?: string }>`
+  position: relative;
+  width: 100%;
+  height: ${({ $height }) => $height};
+  // padding: 8px;
+  border-radius: 8px;
+  background: ${({ theme, $bgColor }) => $bgColor || theme.color.bgSeparator};
+
+  &.icon-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    svg {
+      scale: 1.2;
+    }
+  }
+`;
+
+const Btn = styled.div`
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #161616;
+
+  svg {
+    width: 16px;
+    height: 16px;
+  }
+}
 `;
 
 const StyleReorderGroup = styled.div`
@@ -30,7 +71,7 @@ const SectionContent = styled.div`
   gap: 8px;
   display: flex;
   flex-direction: column;
-  padding: 16px;
+  margin-top: 48px;
 
   .btn-more {
     display: flex;
@@ -50,7 +91,7 @@ const SectionContent = styled.div`
       }
     }
     button {
-      color: #3c3d48;
+      color: ${({ theme }) => theme.color.background};
     }
   }
 `;
@@ -77,59 +118,106 @@ const TOGGLE_BUTTONS = [
   { label: '주별', value: 'week' }
 ];
 
+const CircularProgressWithLabel = ({ value }: { value: number }) => {
+  return (
+    <Box sx={{ position: 'relative', display: 'inline-flex' }}>
+      <CircularProgress variant="determinate" value={value} />
+      <Box
+        sx={{
+          top: 0,
+          left: 0,
+          bottom: 0,
+          right: 0,
+          position: 'absolute',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center'
+        }}
+      >
+        <Typography variant="caption" component="div" sx={{ color: 'text.secondary' }}>
+          {`${Math.round(value)}%`}
+        </Typography>
+      </Box>
+    </Box>
+  );
+};
+
+const ProviderTasks = () => {
+  return (
+    <TaskWrapper $height="120px" $bgColor="#b5cff8">
+      <div style={{ padding: '8px', color: '#000000', fontWeight: 700 }}>
+        <div>우선 일정</div>
+        {intended.map(({ name }) => {
+          return (
+            <div
+              style={{
+                fontSize: '12px',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                display: '-webkit-box',
+                WebkitLineClamp: 1,
+                WebkitBoxOrient: 'vertical'
+              }}
+            >
+              {name}
+            </div>
+          );
+        })}
+      </div>
+      <Btn>
+        <ArrowOutwardIcon />
+      </Btn>
+    </TaskWrapper>
+  );
+};
+
+const ProgressTaskBar = () => (
+  <TaskWrapper $height="50px">
+    <FlexBox justify="space-between">
+      <div>
+        <div>일정 진행률</div>
+        <div style={{ color: '#666666', fontSize: '11px', fontWeight: 500 }}>10 / 8 완료</div>
+      </div>
+      <CircularProgressWithLabel value={80} />
+    </FlexBox>
+  </TaskWrapper>
+);
+
+const ProviderTasks2 = () => {
+  return (
+    <TaskWrapper $height="178px" $bgColor="#b5cff8">
+      <div style={{ padding: '8px', color: '#000000', fontWeight: 700 }}>
+        <div>진행중인 일정</div>
+        <div>
+          <div>아무말이나 일단 적어</div>
+          <div>일정에 관한 내용, 아무말 히히</div>
+        </div>
+      </div>
+      <Btn>
+        <ArrowOutwardIcon />
+      </Btn>
+    </TaskWrapper>
+  );
+};
+
 const HomePage = () => {
   const navigate = useNavigate();
   const [items, setItems] = useState([1, 2]);
-  const [dateType, setDateType] = useState<TDateType>('month');
 
   const handleMoreClick = () => navigate('/');
 
-  const markedDates = [
-    {
-      startDate: dayjs('2024-12-12'),
-      endDate: dayjs('2024-12-15'),
-      color: 'black',
-      markClass: undefined
-    },
-    {
-      startDate: dayjs('2024-12-15'),
-      endDate: dayjs('2024-12-16'),
-      color: 'blue',
-      markClass: undefined
-    },
-    {
-      startDate: dayjs('2024-12-15'),
-      endDate: dayjs('2024-12-18'),
-      color: 'green',
-      markClass: undefined
-    },
-    {
-      startDate: dayjs('2024-12-18 13:40:00'),
-      endDate: dayjs('2024-12-18 16:30:00'),
-      color: 'red',
-      markClass: undefined
-    }
-  ];
-
-  const handleToggleChange = (_: React.MouseEvent<HTMLElement>, value: TDateType) => {
-    console.log('##### toggle:', value);
-    setDateType(value);
-  };
-  const handleDateChange = (date: Dayjs) => {
-    console.log('##### date:', date.format('YYYY-MM-DD'));
-  };
-
   return (
     <HomePageWrapper>
-      <ToggleButtonGroup exclusive buttons={TOGGLE_BUTTONS} value={dateType} onChange={handleToggleChange} />
-      <DatePicker dateType={dateType} markedDates={markedDates} onChange={handleDateChange} />
+      <FlexBox gap="8px">
+        <FullWidthFlexBox gap="8px" direction="column">
+          <ProviderTasks />
+          <ProgressTaskBar />
+        </FullWidthFlexBox>
+        <ProviderTasks2 />
+      </FlexBox>
 
       <SectionContent>
-        <div>진행중</div>
-      </SectionContent>
-
-      <SectionContent>
-        <div>예정된 일정</div>
+        <div>오늘의 일정</div>
         <StyleReorderGroup>
           <Reorder.Group axis="x" values={items} onReorder={setItems}>
             {intended?.map((t) => (

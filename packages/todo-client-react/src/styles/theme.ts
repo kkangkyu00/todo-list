@@ -28,7 +28,7 @@ export const lightColor = {
 };
 export const darkColor = {
   background: '#161616',
-  bgSeparator: '#2C2C2E',
+  bgSeparator: '#313131',
   // Default Font Color
   main: '#ebecf0',
   // Color

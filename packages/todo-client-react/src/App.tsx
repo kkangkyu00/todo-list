@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { Box } from '@mui/material';
-import { HeaderContainer } from '@containers';
+import { HeaderContainer, TabBarContainer } from '@containers';
 import AppRoutes from '@routes';
 
 import './App.css';
@@ -18,8 +18,11 @@ const App = () => {
   return (
     <React.Suspense fallback="">
       <MainLayout>
+        {/* Header */}
         <HeaderContainer />
         <AppRoutes location={location} />
+        {/* Navigation Bar */}
+        <TabBarContainer />
       </MainLayout>
     </React.Suspense>
   );

@@ -1,7 +1,8 @@
 import React from 'react';
-import { useMatch } from 'react-router-dom';
+import dayjs from 'dayjs';
 import styled from 'styled-components';
-import { Box, IconButton } from '@mui/material';
+import { useMatch } from 'react-router-dom';
+import { IconButton } from '@mui/material';
 import { NotificationsOutlined as NotificationsIcon } from '@mui/icons-material';
 
 const HeaderWrapper = styled.div`
@@ -13,7 +14,7 @@ const HeaderWrapper = styled.div`
   justify-content: space-between;
 
   width: calc(100% - 32px);
-  height: 44px;
+  height: 56px;
   padding: 0 16px;
   ${({ theme }) => theme.typography.font20B};
   color: ${({ theme }) => theme.color.main};
@@ -25,17 +26,13 @@ const HeaderContainer = () => {
   // console.log(isMatchHome, '###############');
   return (
     <HeaderWrapper>
-      <Box>
-        {!isMatchHome ? (
-          <IconButton>
-            <Box />
-          </IconButton>
-        ) : null}
-      </Box>
-      <Box>ToDoit.</Box>
-      <Box>
+      <div>
+        {!isMatchHome ? <IconButton /> : null}
+        {isMatchHome ? <div>{dayjs().format('MM월 DD일')}</div> : null}
+      </div>
+      <div>
         <NotificationsIcon />
-      </Box>
+      </div>
     </HeaderWrapper>
   );
 };

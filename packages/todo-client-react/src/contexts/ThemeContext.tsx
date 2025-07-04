@@ -1,11 +1,7 @@
 import React, { ReactNode } from 'react';
-import styled, { DefaultTheme, ThemeProvider as StyledThemeProvider } from 'styled-components';
+import { DefaultTheme, ThemeProvider as StyledThemeProvider } from 'styled-components';
 import { useTheme } from '@hooks';
 import { lightTheme, darkTheme } from '@styles/theme';
-
-const ThemeWrapper = styled.div`
-  background: ${({ theme }) => theme.color.background};
-`;
 
 interface ThemeProviderProps {
   children: ReactNode;
@@ -24,9 +20,7 @@ const ThemeProvider = ({ children }: ThemeProviderProps) => {
 
   return (
     <ThemeContext.Provider value={themeProps}>
-      <StyledThemeProvider theme={theme}>
-        <ThemeWrapper>{children}</ThemeWrapper>
-      </StyledThemeProvider>
+      <StyledThemeProvider theme={theme}>{children}</StyledThemeProvider>
     </ThemeContext.Provider>
   );
 };

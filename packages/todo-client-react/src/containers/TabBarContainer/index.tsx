@@ -7,7 +7,7 @@ import { classNames } from '@utils';
 import { TabWrapper, TabContent } from './style';
 
 const pathMap = [
-  { icon: <Home />, path: '/' },
+  { icon: <Home />, path: '/main' },
   { icon: <EditCalendar />, path: '/tasks' },
   { icon: <Leaderboard />, path: '/stat' },
   { icon: <Settings />, path: '/setting' }
